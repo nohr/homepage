@@ -36,7 +36,10 @@ export const postQuery = defineQuery(`
 export const allPostQuery = defineQuery(`
 *[ _type == "project" ]{
         _id,
+        _type,
         _createdAt,
+        _updatedAt,
+        _rev,
         name,
         medium,
         rank,

@@ -2,8 +2,6 @@ import { DocumentTextIcon } from "@sanity/icons";
 import { format, parseISO } from "date-fns";
 import { defineField, defineType } from "sanity";
 
-import authorType from "./author";
-
 /**
  * This file is the schema definition for a post.
  *
@@ -25,12 +23,6 @@ export default defineType({
     defineField({
       name: "name",
       title: "Name",
-      type: "string",
-      validation: (rule) => rule.required(),
-    }),
-    defineField({
-      name: "title",
-      title: "Title",
       type: "string",
       validation: (rule) => rule.required(),
     }),
@@ -58,44 +50,10 @@ export default defineType({
       type: "text",
     }),
     defineField({
-      name: "coverImage",
-      title: "Cover Image",
-      type: "image",
-      options: {
-        hotspot: true,
-        aiAssist: {
-          imageDescriptionField: "alt",
-        },
-      },
-      fields: [
-        {
-          name: "alt",
-          type: "string",
-          title: "Alternative text",
-          description: "Important for SEO and accessiblity.",
-          validation: (rule) => {
-            return rule.custom((alt, context) => {
-              if ((context.document?.coverImage as any)?.asset?._ref && !alt) {
-                return "Required";
-              }
-              return true;
-            });
-          },
-        },
-      ],
-      validation: (rule) => rule.required(),
-    }),
-    defineField({
       name: "date",
       title: "Date",
       type: "datetime",
       initialValue: () => new Date().toISOString(),
-    }),
-    defineField({
-      name: "author",
-      title: "Author",
-      type: "reference",
-      to: [{ type: authorType.name }],
     }),
   ],
   preview: {

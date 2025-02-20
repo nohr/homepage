@@ -19,6 +19,10 @@ export const postType = defineType({
       },
     }),
     defineField({
+      name: "rank",
+      type: "number",
+    }),
+    defineField({
       name: "thumbnail",
       type: "object",
       fields: [
