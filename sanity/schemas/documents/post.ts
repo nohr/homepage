@@ -17,11 +17,17 @@ import authorType from "./author";
  */
 
 export default defineType({
-  name: "post",
-  title: "Post",
+  name: "project",
+  title: "Project",
   icon: DocumentTextIcon,
   type: "document",
   fields: [
+    defineField({
+      name: "name",
+      title: "Name",
+      type: "string",
+      validation: (rule) => rule.required(),
+    }),
     defineField({
       name: "title",
       title: "Title",

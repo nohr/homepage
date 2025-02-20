@@ -32,3 +32,21 @@ export const postQuery = defineQuery(`
     ${postFields}
   }
 `);
+
+export const allPostQuery = defineQuery(`
+*[ _type == "project" ]{
+        _id,
+        _createdAt,
+        name,
+        medium,
+        rank,
+        content,
+        thumbnail{ 
+          "video": video.asset->url,
+          "blurhash": blurhash.asset->url,
+          },
+        "slug": slug.current,
+        program,
+        date
+      } | order(date desc)
+`);

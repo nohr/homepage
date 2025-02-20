@@ -1,65 +1,111 @@
-import {DocumentTextIcon} from '@sanity/icons'
-import {defineArrayMember, defineField, defineType} from 'sanity'
+import { DocumentTextIcon } from "@sanity/icons";
+import { defineArrayMember, defineField, defineType } from "sanity";
 
 export const postType = defineType({
-  name: 'post',
-  title: 'Post',
-  type: 'document',
+  name: "project",
+  title: "Project",
+  type: "document",
   icon: DocumentTextIcon,
   fields: [
     defineField({
-      name: 'title',
-      type: 'string',
+      name: "name",
+      type: "string",
     }),
     defineField({
-      name: 'slug',
-      type: 'slug',
+      name: "slug",
+      type: "slug",
       options: {
-        source: 'title',
+        source: "title",
       },
     }),
     defineField({
-      name: 'author',
-      type: 'reference',
-      to: {type: 'author'},
-    }),
-    defineField({
-      name: 'mainImage',
-      type: 'image',
-      options: {
-        hotspot: true,
-      },
+      name: "thumbnail",
+      type: "object",
       fields: [
         defineField({
-          name: 'alt',
-          type: 'string',
-          title: 'Alternative text',
-        })
-      ]
+          name: "video",
+          type: "file",
+          title: "Video",
+        }),
+        defineField({
+          name: "blurhash",
+          type: "image",
+          title: "Blurhash",
+        }),
+      ],
     }),
     defineField({
-      name: 'categories',
-      type: 'array',
-      of: [defineArrayMember({type: 'reference', to: {type: 'category'}})],
+      name: "images",
+      title: "Images",
+      type: "array",
+      of: [
+        {
+          name: "Image",
+          title: "Image",
+          type: "image",
+        },
+      ],
     }),
     defineField({
-      name: 'publishedAt',
-      type: 'datetime',
+      name: "videos",
+      title: "Videos",
+      type: "array",
+      of: [
+        {
+          name: "VideoObject",
+          title: "Video Object",
+          type: "object",
+          fields: [
+            {
+              name: "url",
+              title: "url",
+              type: "file",
+            },
+            {
+              type: "string",
+              name: "alt",
+              title: "Alt text",
+            },
+            {
+              type: "boolean",
+              name: "mobile",
+              title: "Mobile",
+            },
+          ],
+        },
+      ],
     }),
     defineField({
-      name: 'body',
-      type: 'blockContent',
+      name: "url",
+      type: "array",
+      of: [defineArrayMember({ type: "string" })],
+    }),
+    defineField({
+      name: "medium",
+      type: "string",
+    }),
+    defineField({
+      name: "program",
+      type: "array",
+      of: [defineArrayMember({ type: "string" })],
+    }),
+    defineField({
+      name: "tags",
+      type: "array",
+      of: [defineArrayMember({ type: "reference", to: { type: "tag" } })],
+    }),
+    defineField({
+      name: "date",
+      type: "datetime",
+    }),
+    defineField({
+      name: "content",
+      type: "blockContent",
     }),
   ],
   preview: {
     select: {
-      title: 'title',
-      author: 'author.name',
-      media: 'mainImage',
-    },
-    prepare(selection) {
-      const {author} = selection
-      return {...selection, subtitle: author && `by ${author}`}
+      title: "name",
     },
   },
-})
+});

@@ -8,7 +8,6 @@ import { Suspense } from "react";
 import Avatar from "../../avatar";
 import CoverImage from "../../cover-image";
 import DateComponent from "../../date";
-import MoreStories from "../../more-stories";
 import PortableText from "../../portable-text";
 
 import * as demo from "@/sanity/lib/demo";
@@ -107,9 +106,6 @@ export default async function PostPage({ params }: Props) {
         <h2 className="mb-8 text-6xl font-bold leading-tight tracking-tighter md:text-7xl">
           Recent Stories
         </h2>
-        <Suspense>
-          <MoreStories skip={post._id} limit={2} />
-        </Suspense>
       </aside>
     </div>
   );
