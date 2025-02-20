@@ -1,5 +1,5 @@
 import Screen from "@components/screen";
 
 export default function About() {
-  return <Screen>About</Screen>;
+  return <Screen className="!pt-[25svh]">About</Screen>;
 }

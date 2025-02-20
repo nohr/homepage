@@ -5,7 +5,7 @@ export default function Nav() {
   return (
     <nav className="grid !text-white fixed z-40 p-4 top-0 left-0 gap-4 w-full mix-blend-exclusion dark:mix-blend-difference grid-cols-12 items-start *:w-fit">
       {/* Home */}
-      <Link href="/" className="col-span-2 cursor-pointer">
+      <Link href="/" className="col-span-2 cursor-pointer uppercase">
         Aitenoria Aigbe
       </Link>
       {/* Tags */}
@@ -23,9 +23,14 @@ export default function Nav() {
         SHOP
       </Link>
       <Play />
-      <Link className="col-start-12 text-red-600 cursor-pointer" href="/studio">
-        STUDIO
-      </Link>
+      {process.env.NODE_ENV === "development" ? (
+        <Link
+          className="col-start-12 text-red-600 cursor-pointer"
+          href="/studio"
+        >
+          STUDIO
+        </Link>
+      ) : null}
     </nav>
   );
 }
