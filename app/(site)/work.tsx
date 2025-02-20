@@ -14,7 +14,7 @@ export default function Work({ data }: { data: AllPostQueryResult }) {
           className="grid gap-2 grid-cols-2 grid-rows-2 col-span-2 row-span-2"
         >
           <div
-            className={`col-span-2 row-span-1 pointer-events-none relative h-full overflow-hidden shadow-lg`}
+            className={`col-span-2 row-span-1 pointer-events-none relative h-full overflow-hidden `}
           >
             {post.thumbnail?.video ? (
               <video

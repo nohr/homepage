@@ -9,7 +9,7 @@ export default function Home() {
         consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac
         aliquet odio mattis.
       </p>
-      <p className="col-start-9 row-start-6 col-span-2 self-end opacity-75">
+      <p className="col-start-9 row-start-6 col-span-2 self-end opacity-25">
         © Aite Aigbe 2024
       </p>
     </Screen>
