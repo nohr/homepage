@@ -1,6 +1,7 @@
 import "../globals.css";
 
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from "@vercel/analytics/react";
 import type { Metadata } from "next";
 import { VisualEditing } from "next-sanity";
 import { Inter } from "next/font/google";
@@ -78,6 +79,7 @@ export default async function RootLayout({
           </main>
           {isDraftMode && <VisualEditing />}
           <SpeedInsights />
+          <Analytics />
         </ScrollWrapper>
       </body>
     </html>
