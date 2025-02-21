@@ -1,10 +1,11 @@
 "use client";
-//
-// import { ReactLenis } from "lenis/react";
-// import type { LenisRef } from "lenis/react";
-// import { cancelFrame, frame } from "motion";
-// import { useEffect, useRef } from "react";
 
-export default function ScrollWrapper() {
-  return <></>;
+import { ReactLenis, useLenis } from "lenis/react";
+import { ReactNode } from "react";
+
+export default function ScrollWrapper({ children }: { children: ReactNode }) {
+  const lenis = useLenis(({ scroll }) => {
+    // called every scroll
+  });
+  return <ReactLenis root>{children}</ReactLenis>;
 }

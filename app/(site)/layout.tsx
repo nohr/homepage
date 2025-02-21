@@ -13,6 +13,7 @@ import Nav from "@components/nav";
 
 import { sanityFetch } from "@/sanity/lib/fetch";
 import { allPostQuery } from "@/sanity/lib/queries";
+import ScrollWrapper from "../_components/scroll-wrapper";
 // import { resolveOpenGraphImage } from "@/sanity/lib/utils";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -67,7 +68,7 @@ export default async function RootLayout({
       className={`${inter.variable} text-[13px] bg-white text-black dark:bg-black dark:text-white`}
     >
       <body>
-        <section className="min-h-screen">
+        <ScrollWrapper>
           <main className="snap-mandatory">
             <Nav />
             <Home />
@@ -75,9 +76,9 @@ export default async function RootLayout({
             <About />
             {children}
           </main>
-        </section>
-        {isDraftMode && <VisualEditing />}
-        <SpeedInsights />
+          {isDraftMode && <VisualEditing />}
+          <SpeedInsights />
+        </ScrollWrapper>
       </body>
     </html>
   );

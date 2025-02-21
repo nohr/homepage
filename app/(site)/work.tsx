@@ -6,7 +6,7 @@ import Image from "next/image";
 
 export default function Work({ data }: { data: AllPostQueryResult }) {
   return (
-    <Screen className="!pt-[16.67svh]">
+    <Screen id="work" className="!pt-[16.67svh]">
       {data.map((post) => (
         <div
           key={post._id}
