@@ -1,3 +1,9 @@
+import Screen from "@components/screen";
+
 export default async function AboutPage() {
-  return <></>;
+  return (
+    <Screen id="about" className="!pt-[25svh]">
+      About
+    </Screen>
+  );
 }

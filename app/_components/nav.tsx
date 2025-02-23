@@ -8,38 +8,34 @@ export default function Nav() {
     <nav className="grid !text-white fixed z-40 p-4 top-0 left-0 gap-4 w-full mix-blend-exclusion dark:mix-blend-difference grid-cols-12 items-start *:w-fit">
       <Suspense>
         {/* Home */}
-        <ScrollLink
-          href="/"
-          scrollTo={0}
-          className="col-span-2 cursor-pointer uppercase"
-        >
-          Aitenoria Aigbe
+        <ScrollLink href="/" scrollTo={0} className="col-span-2 cursor-pointer">
+          aitenoria aigbe
         </ScrollLink>
         {/* Tags */}
         <div className="flex flex-col col-start-5 col-span-2 *:w-fit *:cursor-pointer">
           <ScrollLink href="work" scrollTo="#work">
-            ALL
+            Selected Works
           </ScrollLink>
           <ScrollLink
             params={{ name: "t", value: "graphics" }}
             href="work"
             scrollTo="#work"
           >
-            GRAPHICS
+            Graphics
           </ScrollLink>
           <ScrollLink
             params={{ name: "t", value: "websites" }}
             href="work"
             scrollTo="#work"
           >
-            WEBSITES
+            Websites
           </ScrollLink>
           <ScrollLink
             params={{ name: "t", value: "interactive" }}
             href="work"
             scrollTo="#work"
           >
-            INTERACTIVE
+            Interactive
           </ScrollLink>
         </div>
         {/* Links */}

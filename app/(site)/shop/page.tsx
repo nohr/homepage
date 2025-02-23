@@ -1,9 +1,9 @@
 import Screen from "@components/screen";
 
-export default function About() {
+export default async function AboutPage() {
   return (
     <Screen id="about" className="!pt-[25svh]">
-      About
+      Shop
     </Screen>
   );
 }

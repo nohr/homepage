@@ -7,13 +7,8 @@ import { VisualEditing } from "next-sanity";
 import { Inter } from "next/font/google";
 import { draftMode } from "next/headers";
 
-import Home from "./home";
-import About from "./about";
-import Work from "./work";
 import Nav from "@components/nav";
 
-import { sanityFetch } from "@/sanity/lib/fetch";
-import { allPostQuery } from "@/sanity/lib/queries";
 import ScrollWrapper from "../_components/scroll-wrapper";
 // import { resolveOpenGraphImage } from "@/sanity/lib/utils";
 
@@ -60,7 +55,6 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const data = await sanityFetch({ query: allPostQuery });
   const { isEnabled: isDraftMode } = await draftMode();
 
   return (
@@ -70,11 +64,8 @@ export default async function RootLayout({
     >
       <body>
         <ScrollWrapper>
-          <main className="snap-mandatory">
+          <main>
             <Nav />
-            <Home />
-            <Work data={data} />
-            <About />
             {children}
           </main>
           {isDraftMode && <VisualEditing />}
