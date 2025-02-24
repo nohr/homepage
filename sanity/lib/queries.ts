@@ -43,6 +43,7 @@ export const allPostQuery = defineQuery(`
         name,
         medium,
         rank,
+        vimeo,
         content,
         thumbnail{ 
           "video": video.asset->url,

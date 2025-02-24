@@ -3,10 +3,13 @@ import Image from "next/image";
 import { sanityFetch } from "@/sanity/lib/fetch";
 import { allPostQuery } from "@/sanity/lib/queries";
 import PortableText from "../portable-text";
+//@ts-expect-error not sure how to get rid of error
 import { PortableTextBlock } from "next-sanity";
+import { AllPostQueryResult } from "@/sanity.types";
+import VimeoVideo from "@/app/_components/vimeo-video";
 
 export default async function WorkPage() {
-  const data = await sanityFetch({ query: allPostQuery });
+  const data: AllPostQueryResult = await sanityFetch({ query: allPostQuery });
   const rank_styles = [
     "col-span-4 h-[25vh]",
     "col-span-6 h-[50vh]",
@@ -22,7 +25,8 @@ export default async function WorkPage() {
           <div
             className={`row-start-1 col-span-2 row-span-2 pointer-events-none relative h-full overflow-hidden `}
           >
-            {post.thumbnail?.blurhash ? (
+            {post?.vimeo ? <VimeoVideo id={post.vimeo} autoplay /> : null}
+            {!post?.vimeo && post.thumbnail?.blurhash ? (
               <Image
                 src={post.thumbnail.blurhash}
                 alt={post.name ?? post._id + " blurhash"}
@@ -37,7 +41,6 @@ export default async function WorkPage() {
             {post.name}
             <span className="opacity-75">
               {post.content && (
-                //@ts-expect-error the type is the same not sure how to get rid of error
                 <PortableText value={post.content as PortableTextBlock} />
               )}
             </span>

@@ -119,6 +119,7 @@ export type Project = {
       _type: "image";
     };
   };
+  vimeo?: string;
   images?: Array<{
     asset?: {
       _ref: string;
@@ -261,7 +262,7 @@ export type MoreStoriesQueryResult = Array<never>;
 // Query: *[_type == "post" && slug.current == $slug] [0] {    content,      _id,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _updatedAt),  "author": author->{"name": coalesce(name, "Anonymous"), picture},  }
 export type PostQueryResult = null;
 // Variable: allPostQuery
-// Query: *[ _type == "project" ]{        _id,        _type,        _createdAt,        _updatedAt,        _rev,        name,        medium,        rank,        content,        thumbnail{           "video": video.asset->url,          "blurhash": blurhash.asset->url,          },        "slug": slug.current,        program,        date      } | order(date desc)
+// Query: *[ _type == "project" ]{        _id,        _type,        _createdAt,        _updatedAt,        _rev,        name,        medium,        rank,        vimeo,        content,        thumbnail{           "video": video.asset->url,          "blurhash": blurhash.asset->url,          },        "slug": slug.current,        program,        date      } | order(date desc)
 export type AllPostQueryResult = Array<{
   _id: string;
   _type: "project";
@@ -271,6 +272,7 @@ export type AllPostQueryResult = Array<{
   name: string | null;
   medium: string | null;
   rank: number | null;
+  vimeo: string | null;
   content: BlockContent | null;
   thumbnail: {
     video: string | null;
@@ -289,6 +291,6 @@ declare module "@sanity/client" {
     "\n  *[_type == \"post\" && defined(slug.current)] | order(date desc, _updatedAt desc) [0] {\n    content,\n    \n  _id,\n  \"status\": select(_originalId in path(\"drafts.**\") => \"draft\", \"published\"),\n  \"title\": coalesce(title, \"Untitled\"),\n  \"slug\": slug.current,\n  excerpt,\n  coverImage,\n  \"date\": coalesce(date, _updatedAt),\n  \"author\": author->{\"name\": coalesce(name, \"Anonymous\"), picture},\n\n  }\n": HeroQueryResult;
     "\n  *[_type == \"post\" && _id != $skip && defined(slug.current)] | order(date desc, _updatedAt desc) [0...$limit] {\n    \n  _id,\n  \"status\": select(_originalId in path(\"drafts.**\") => \"draft\", \"published\"),\n  \"title\": coalesce(title, \"Untitled\"),\n  \"slug\": slug.current,\n  excerpt,\n  coverImage,\n  \"date\": coalesce(date, _updatedAt),\n  \"author\": author->{\"name\": coalesce(name, \"Anonymous\"), picture},\n\n  }\n": MoreStoriesQueryResult;
     "\n  *[_type == \"post\" && slug.current == $slug] [0] {\n    content,\n    \n  _id,\n  \"status\": select(_originalId in path(\"drafts.**\") => \"draft\", \"published\"),\n  \"title\": coalesce(title, \"Untitled\"),\n  \"slug\": slug.current,\n  excerpt,\n  coverImage,\n  \"date\": coalesce(date, _updatedAt),\n  \"author\": author->{\"name\": coalesce(name, \"Anonymous\"), picture},\n\n  }\n": PostQueryResult;
-    "\n*[ _type == \"project\" ]{\n        _id,\n        _type,\n        _createdAt,\n        _updatedAt,\n        _rev,\n        name,\n        medium,\n        rank,\n        content,\n        thumbnail{ \n          \"video\": video.asset->url,\n          \"blurhash\": blurhash.asset->url,\n          },\n        \"slug\": slug.current,\n        program,\n        date\n      } | order(date desc)\n": AllPostQueryResult;
+    "\n*[ _type == \"project\" ]{\n        _id,\n        _type,\n        _createdAt,\n        _updatedAt,\n        _rev,\n        name,\n        medium,\n        rank,\n        vimeo,\n        content,\n        thumbnail{ \n          \"video\": video.asset->url,\n          \"blurhash\": blurhash.asset->url,\n          },\n        \"slug\": slug.current,\n        program,\n        date\n      } | order(date desc)\n": AllPostQueryResult;
   }
 }

@@ -39,6 +39,11 @@ export const postType = defineType({
       ],
     }),
     defineField({
+      name: "vimeo",
+      title: "Vimeo id",
+      type: "string",
+    }),
+    defineField({
       name: "images",
       title: "Images",
       type: "array",
