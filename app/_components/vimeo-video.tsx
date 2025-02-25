@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 import Player from "@vimeo/player";
 
-export default function VimeoVideo({ id }: { id: string | undefined }) {
+export default function VimeoVideo({ id }: { id: number | undefined }) {
   const playerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -20,9 +20,9 @@ export default function VimeoVideo({ id }: { id: string | undefined }) {
     if (playerRef.current !== null) {
       const player = new Player(playerRef.current, options);
 
-      player.on("play", () => {
-        console.log("play");
-      });
+      // player.on("play", () => {
+      //   console.log("play");
+      // });
     }
   }, [id]);
 

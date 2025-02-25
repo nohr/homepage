@@ -15,11 +15,11 @@ import {
 } from "next-sanity";
 
 export default function CustomPortableText({
-  className,
   value,
+  className,
 }: {
-  className?: string;
   value: PortableTextBlock[];
+  className?: string;
 }) {
   const components: PortableTextComponents = {
     block: {

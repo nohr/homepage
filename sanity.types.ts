@@ -119,7 +119,7 @@ export type Project = {
       _type: "image";
     };
   };
-  vimeo?: string;
+  vimeo?: number;
   images?: Array<{
     asset?: {
       _ref: string;
@@ -272,7 +272,7 @@ export type AllPostQueryResult = Array<{
   name: string | null;
   medium: string | null;
   rank: number | null;
-  vimeo: string | null;
+  vimeo: number | null;
   content: BlockContent | null;
   thumbnail: {
     video: string | null;
