@@ -9,9 +9,9 @@ import VimeoVideo from "@/app/_components/vimeo-video";
 export default async function WorkPage() {
   const data: AllPostQueryResult = await sanityFetch({ query: allPostQuery });
   const rank_styles = [
-    "col-span-4 h-[25vh]",
-    "col-span-6 h-[50vh]",
-    "col-span-12 h-[75vh]",
+    "grid-cols-2 grid-rows-[1fr_1fr_0.5fr] col-span-4 h-[25vw]",
+    "grid-cols-2 grid-rows-[1fr_1fr_0.5fr] col-span-6 h-[40vw]",
+    "grid-cols-2 grid-rows-[1fr_1fr_0.5fr] col-span-12 h-[75vw]",
   ];
 
   return (
@@ -19,20 +19,20 @@ export default async function WorkPage() {
       {data.map((post) => (
         <div
           key={post._id}
-          className={`grid gap-2 grid-cols-2 ${rank_styles[post.rank ?? 0]}`}
+          className={`grid gap-2  ${rank_styles[post.rank ?? 0]}`}
         >
           <div
             className={`row-start-1 col-span-2 row-span-2 pointer-events-none relative h-full overflow-hidden `}
           >
             {post?.vimeo ? <VimeoVideo id={post.vimeo} /> : null}
-            {!post?.vimeo && post.thumbnail?.blurhash ? (
+            {post.thumbnail?.blurhash ? (
               <Image
                 src={post.thumbnail.blurhash}
                 alt={post.name ?? post._id + " blurhash"}
                 fill
                 sizes="400px"
                 priority
-                className={`pointer-events-none absolute select-none object-cover`}
+                className={`pointer-events-none absolute select-none object-cover -z-10`}
               />
             ) : null}
           </div>

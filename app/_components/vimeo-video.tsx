@@ -14,7 +14,10 @@ export default function VimeoVideo({ id }: { id: number | undefined }) {
       muted: true,
       controls: false,
       airplay: false,
+      chromecast: false,
       background: true,
+      autopause: false,
+      responsive: true,
     };
 
     if (playerRef.current !== null) {
@@ -28,10 +31,7 @@ export default function VimeoVideo({ id }: { id: number | undefined }) {
 
   return (
     <>
-      <div
-        className="h-full [&_iframe]:h-full [&_iframe]:w-full "
-        ref={playerRef}
-      ></div>
+      <div className="h-full " ref={playerRef}></div>
     </>
   );
 }
