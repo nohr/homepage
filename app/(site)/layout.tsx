@@ -60,7 +60,7 @@ export default async function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} text-[13px] bg-white text-black dark:bg-black dark:text-white`}
+      className={`${inter.variable} text-[13px] bg-white text-black`}
     >
       <body>
         <ScrollWrapper>

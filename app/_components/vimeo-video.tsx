@@ -31,7 +31,7 @@ export default function VimeoVideo({ id }: { id: number | undefined }) {
 
   return (
     <>
-      <div className="h-full " ref={playerRef}></div>
+      <div className="h-full" ref={playerRef}></div>
     </>
   );
 }

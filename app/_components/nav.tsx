@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Play from "./play-icon";
 import ScrollLink from "./scroll-link";
 import { Suspense } from "react";
 
@@ -45,11 +44,11 @@ export default function Nav() {
         <Link className="col-start-10" href="/shop">
           SHOP
         </Link>
-        <Play />
         {process.env.NODE_ENV === "development" ? (
           <Link
             className="col-start-12 text-red-600 cursor-pointer"
             href="/studio"
+            target="_blank"
           >
             STUDIO
           </Link>
