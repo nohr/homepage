@@ -12,6 +12,8 @@ export default async function WorkPage() {
     "grid-cols-2 grid-rows-[1fr_1fr_0.5fr] col-span-4 h-[25vw]",
     "grid-cols-2 grid-rows-[1fr_1fr_0.5fr] col-span-6 h-[40vw]",
     "grid-cols-2 grid-rows-[1fr_1fr_0.5fr] col-span-12 h-[75vw]",
+    "grid-cols-2 grid-rows-[1fr_1fr_0.5fr] col-span-4 h-[72vw]",
+    "grid-cols-2 grid-rows-[1fr_1fr_0.5fr] col-span-8 h-[40vw]",
   ];
 
   return (
@@ -37,7 +39,8 @@ export default async function WorkPage() {
             ) : null}
           </div>
           <div className="flex flex-col row-start-3 col-span-2 row-span-1">
-            {post.name}
+            {post.name}{" "}
+            {process.env.NODE_ENV === "development" ? post.rank : null}
             <span className="opacity-75">
               {post.content !== null && post.content !== undefined ? (
                 //@ts-expect-error they fucked up the types
