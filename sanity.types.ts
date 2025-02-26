@@ -46,6 +46,34 @@ export type Geopoint = {
   alt?: number;
 };
 
+export type Info = {
+  _id: string;
+  _type: "info";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  bio?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
+    listItem?: "bullet" | "number";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  }>;
+  location?: string;
+  timeZone?: string;
+};
+
 export type BlockContent = Array<{
   children?: Array<{
     marks?: Array<string>;
@@ -246,7 +274,7 @@ export type Slug = {
   source?: string;
 };
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | Geopoint | BlockContent | Tag | Project | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityImageMetadata | SanityFileAsset | SanityAssetSourceData | Slug;
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | Geopoint | Info | BlockContent | Tag | Project | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityImageMetadata | SanityFileAsset | SanityAssetSourceData | Slug;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./sanity/lib/queries.ts
 // Variable: settingsQuery
@@ -282,6 +310,35 @@ export type AllPostQueryResult = Array<{
   program: Array<string> | null;
   date: string | null;
 }>;
+// Variable: infoQuery
+// Query: * [_type == "info"] {...}
+export type InfoQueryResult = Array<{
+  _id: string;
+  _type: "info";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  bio?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+    listItem?: "bullet" | "number";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  }>;
+  location?: string;
+  timeZone?: string;
+}>;
 
 // Query TypeMap
 import "@sanity/client";
@@ -292,5 +349,6 @@ declare module "@sanity/client" {
     "\n  *[_type == \"post\" && _id != $skip && defined(slug.current)] | order(date desc, _updatedAt desc) [0...$limit] {\n    \n  _id,\n  \"status\": select(_originalId in path(\"drafts.**\") => \"draft\", \"published\"),\n  \"title\": coalesce(title, \"Untitled\"),\n  \"slug\": slug.current,\n  excerpt,\n  coverImage,\n  \"date\": coalesce(date, _updatedAt),\n  \"author\": author->{\"name\": coalesce(name, \"Anonymous\"), picture},\n\n  }\n": MoreStoriesQueryResult;
     "\n  *[_type == \"post\" && slug.current == $slug] [0] {\n    content,\n    \n  _id,\n  \"status\": select(_originalId in path(\"drafts.**\") => \"draft\", \"published\"),\n  \"title\": coalesce(title, \"Untitled\"),\n  \"slug\": slug.current,\n  excerpt,\n  coverImage,\n  \"date\": coalesce(date, _updatedAt),\n  \"author\": author->{\"name\": coalesce(name, \"Anonymous\"), picture},\n\n  }\n": PostQueryResult;
     "\n*[ _type == \"project\" ]{\n        _id,\n        _type,\n        _createdAt,\n        _updatedAt,\n        _rev,\n        name,\n        medium,\n        rank,\n        vimeo,\n        content,\n        thumbnail{ \n          \"video\": video.asset->url,\n          \"blurhash\": blurhash.asset->url,\n          },\n        \"slug\": slug.current,\n        program,\n        date\n      } | order(date desc)\n": AllPostQueryResult;
+    "\n* [_type == \"info\"] {...}\n": InfoQueryResult;
   }
 }

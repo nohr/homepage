@@ -54,3 +54,7 @@ export const allPostQuery = defineQuery(`
         date
       } | order(date desc)
 `);
+
+export const infoQuery = defineQuery(`
+* [_type == "info"] {...}
+`);
