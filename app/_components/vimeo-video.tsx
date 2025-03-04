@@ -26,6 +26,7 @@ export default function VimeoVideo({ id }: { id: number | undefined }) {
       // player.on("play", () => {
       //   console.log("play");
       // });
+      player.on("bufferend", () => console.log("loaded"));
     }
   }, [id]);
 

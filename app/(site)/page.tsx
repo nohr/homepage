@@ -7,7 +7,7 @@ export default async function Page() {
   const data = await sanityFetch({ query: infoQuery });
 
   return (
-    <Screen>
+    <Screen className="h-screen min-h-screen">
       <CustomPortableText
         className="col-start-9 row-start-4 col-span-4 row-span-3 indent-12"
         //@ts-expect-error stupid types
