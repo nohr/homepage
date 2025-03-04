@@ -7,7 +7,11 @@ export default function Nav() {
     <nav className="grid !text-white fixed z-40 p-4 top-0 left-0 gap-4 w-full mix-blend-exclusion dark:mix-blend-difference grid-cols-12 items-start *:w-fit">
       <Suspense>
         {/* Home */}
-        <ScrollLink href="/" scrollTo={0} className="col-span-3 cursor-pointer">
+        <ScrollLink
+          href="/"
+          scrollTo={0}
+          className="col-span-3 cursor-pointer flex flex-col gap-2"
+        >
           aitenoria aigbe
           <svg
             id="Layer_2"
