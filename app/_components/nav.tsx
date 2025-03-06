@@ -28,35 +28,40 @@ export default function Nav() {
           <ScrollLink href="work" scrollTo="#work">
             Selected Works
           </ScrollLink>
-          <ScrollLink
-            params={{ name: "t", value: "graphics" }}
-            href="work"
-            scrollTo="#work"
-          >
-            Graphics
-          </ScrollLink>
-          <ScrollLink
-            params={{ name: "t", value: "websites" }}
-            href="work"
-            scrollTo="#work"
-          >
-            Websites
-          </ScrollLink>
-          <ScrollLink
-            params={{ name: "t", value: "interactive" }}
-            href="work"
-            scrollTo="#work"
-          >
-            Interactive
-          </ScrollLink>
+          {/* <ScrollLink */}
+          {/*   params={{ name: "t", value: "graphics" }} */}
+          {/*   href="work" */}
+          {/*   scrollTo="#work" */}
+          {/* > */}
+          {/*   Graphics */}
+          {/* </ScrollLink> */}
+          {/* <ScrollLink */}
+          {/*   params={{ name: "t", value: "websites" }} */}
+          {/*   href="work" */}
+          {/*   scrollTo="#work" */}
+          {/* > */}
+          {/*   Websites */}
+          {/* </ScrollLink> */}
+          {/* <ScrollLink */}
+          {/*   params={{ name: "t", value: "interactive" }} */}
+          {/*   href="work" */}
+          {/*   scrollTo="#work" */}
+          {/* > */}
+          {/*   Interactive */}
+          {/* </ScrollLink> */}
         </div>
         {/* Links */}
         <ScrollLink className="col-start-9" href="/about" scrollTo="#about">
           ABOUT
         </ScrollLink>
-        <Link className="col-start-10" href="/shop">
+        <a
+          className="col-start-10"
+          target="_blank"
+          href="https://aitenoria.gumroad.com"
+          rel="noreferrer noopener"
+        >
           SHOP
-        </Link>
+        </a>
         {process.env.NODE_ENV === "development" ? (
           <Link
             className="col-start-12 text-red-600 cursor-pointer"

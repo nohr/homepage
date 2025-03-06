@@ -1,9 +1,11 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Player from "@vimeo/player";
+import { PiSpinnerBold } from "react-icons/pi";
 
 export default function VimeoVideo({ id }: { id: number | undefined }) {
+  const [loaded, setLoaded] = useState(false);
   const playerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -18,6 +20,9 @@ export default function VimeoVideo({ id }: { id: number | undefined }) {
       background: true,
       autopause: false,
       responsive: true,
+      playsinline: true,
+      pip: false,
+      dnt: true,
     };
 
     if (playerRef.current !== null) {
@@ -26,13 +31,18 @@ export default function VimeoVideo({ id }: { id: number | undefined }) {
       // player.on("play", () => {
       //   console.log("play");
       // });
-      player.on("bufferend", () => console.log("loaded"));
+      player.on("bufferend", () => setLoaded(true));
     }
   }, [id]);
 
   return (
     <>
       <div className="h-full" ref={playerRef}></div>
+      {!loaded ? (
+        <div className="h-full w-full flex justify-center">
+          <PiSpinnerBold className="my-auto opacity-50 text-3xl animate-spin" />
+        </div>
+      ) : null}
     </>
   );
 }
