@@ -2,7 +2,6 @@
 
 import { Canvas } from "@react-three/fiber";
 import { Scan } from "./Scan";
-// import Camera from "@/app/(3D)/Camera";
 
 export default function Canva() {
   const document = globalThis.document;
@@ -14,7 +13,6 @@ export default function Canva() {
       eventPrefix="client"
     >
       <Scan />
-      {/* <Camera /> */}
     </Canvas>
   );
 }
