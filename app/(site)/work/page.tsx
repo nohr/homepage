@@ -10,12 +10,12 @@ import { Suspense } from "react";
 export default async function WorkPage() {
   const data: AllPostQueryResult = await sanityFetch({ query: allPostQuery });
   const rank_styles = [
-    "grid-cols-2 grid-rows-[1fr_1fr_0.5fr] col-span-4 h-[25vw]",
-    "grid-cols-2 grid-rows-[1fr_1fr_0.5fr] col-span-6 h-[40vw]",
-    "grid-cols-2 grid-rows-[1fr_1fr_0.5fr] col-span-12 h-[65vw]",
-    "grid-cols-2 grid-rows-[1fr_1fr_0.5fr] col-span-4 h-[72vw]",
-    "grid-cols-2 grid-rows-[1fr_1fr_0.5fr] col-span-8 h-[40vw]",
-    "grid-cols-2 grid-rows-[1fr_1fr_0.5fr] col-span-8 h-full",
+    "grid-cols-2 grid-rows-[1fr_1fr_0.5fr] md:col-span-4 h-[37vh] md:h-[44vw] lg:h-[25vw]",
+    "grid-cols-2 grid-rows-[1fr_1fr_0.5fr] md:col-span-6 md:h-[40vw]",
+    "grid-cols-2 grid-rows-[1fr_1fr_0.5fr] md:col-span-12 md:h-[65vw]",
+    "grid-cols-2 grid-rows-[1fr_1fr_0.5fr] md:col-span-4 md:h-[72vw]",
+    "grid-cols-2 grid-rows-[1fr_1fr_0.5fr] md:col-span-8 md:h-[40vw]",
+    "grid-cols-2 grid-rows-[1fr_1fr_0.5fr] md:col-span-8 md:h-full",
   ];
 
   function projectByID(id: string) {
@@ -81,14 +81,19 @@ export default async function WorkPage() {
   }
 
   return (
-    <div>
+    <div className="flex flex-col gap-2">
       <Screen id="work" className="!pt-[16.67svh] ">
         {daetyas && <ProjectCard project={daetyas} />}
         {fiathouse && <ProjectCard project={fiathouse} />}
       </Screen>
 
       <Screen className=" ">
-        {nestcenter && <ProjectCard project={nestcenter} />}
+        {nestcenter && (
+          <ProjectCard
+            project={nestcenter}
+            rankClass="grid-cols-2 grid-rows-[1fr_1fr_0.5fr] md:col-span-4 md:h-[22vh] lg:h-[25vw]"
+          />
+        )}
 
         {tour360 && <ProjectCard project={tour360} />}
       </Screen>
@@ -119,7 +124,7 @@ export default async function WorkPage() {
         {ekodigital && (
           <ProjectCard
             project={ekodigital}
-            rankClass="grid-cols-2 grid-rows-[1fr_1fr_0.5fr] col-span-12 h-[60vw]"
+            rankClass="grid-cols-2 grid-rows-[1fr_1fr_0.5fr] h-[78vw] md:col-span-12 md:h-[60vw]"
           />
         )}
       </Screen>
@@ -127,7 +132,12 @@ export default async function WorkPage() {
       <Screen className=" ">
         {realms && <ProjectCard project={realms} imgClass="aspect-square" />}
 
-        {nxgn && <ProjectCard project={nxgn} />}
+        {nxgn && (
+          <ProjectCard
+            project={nxgn}
+            rankClass="grid-cols-2 grid-rows-[1fr_1fr_0.5fr] h-[90vw] md:col-span-6 md:h-[40vw]"
+          />
+        )}
       </Screen>
     </div>
   );

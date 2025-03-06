@@ -9,11 +9,11 @@ export default async function Page() {
   return (
     <Screen className="h-screen min-h-screen">
       <CustomPortableText
-        className="col-start-9 row-start-4 col-span-4 row-span-3 indent-12"
+        className="col-start-1 col-span-full row-start-5 row-span-1 md:col-start-9 md:row-start-4 md:col-span-4 md:row-span-3 indent-12"
         //@ts-expect-error stupid types
         value={data[0].bio}
       />
-      <p className="col-start-9 row-start-6 col-span-2 self-end opacity-25">
+      <p className="md:col-start-9 row-start-6 col-span-3 self-end opacity-25">
         © Aite Aigbe 2024
       </p>
     </Screen>

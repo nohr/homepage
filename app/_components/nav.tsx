@@ -4,13 +4,13 @@ import { Suspense } from "react";
 
 export default function Nav() {
   return (
-    <nav className="grid !text-white fixed z-40 p-4 top-0 left-0 gap-4 w-full mix-blend-exclusion dark:mix-blend-difference grid-cols-12 items-start *:w-fit">
+    <nav className="grid !text-white fixed z-40 p-4 top-0 left-0 gap-4 w-full mix-blend-exclusion dark:mix-blend-difference grid-cols-4 md:grid-cols-12 items-start *:w-fit">
       <Suspense>
         {/* Home */}
         <ScrollLink
           href="/"
           scrollTo={0}
-          className="col-span-3 cursor-pointer flex flex-col gap-2"
+          className="col-span-4 cursor-pointer flex flex-col gap-2"
         >
           aitenoria aigbe
           <svg
@@ -55,22 +55,13 @@ export default function Nav() {
           ABOUT
         </ScrollLink>
         <a
-          className="col-start-10"
+          className="col-start-12"
           target="_blank"
           href="https://aitenoria.gumroad.com"
           rel="noreferrer noopener"
         >
           SHOP
         </a>
-        {process.env.NODE_ENV === "development" ? (
-          <Link
-            className="col-start-12 text-red-600 cursor-pointer"
-            href="/studio"
-            target="_blank"
-          >
-            STUDIO
-          </Link>
-        ) : null}
       </Suspense>
     </nav>
   );
