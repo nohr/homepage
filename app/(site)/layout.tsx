@@ -10,6 +10,8 @@ import { draftMode } from "next/headers";
 import Nav from "@components/nav";
 
 import ScrollWrapper from "../_components/scroll-wrapper";
+import { tagQuery } from "@/sanity/lib/queries";
+import { sanityFetch } from "@/sanity/lib/fetch";
 // import { resolveOpenGraphImage } from "@/sanity/lib/utils";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -56,7 +58,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const { isEnabled: isDraftMode } = await draftMode();
-
+  const data = await sanityFetch({ query: tagQuery });
   return (
     <html
       lang="en"
@@ -65,7 +67,7 @@ export default async function RootLayout({
       <body>
         <ScrollWrapper>
           <main>
-            <Nav />
+            <Nav tags={data} />
             {children}
           </main>
           {isDraftMode && <VisualEditing />}

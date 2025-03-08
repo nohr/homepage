@@ -58,3 +58,11 @@ export const allPostQuery = defineQuery(`
 export const infoQuery = defineQuery(`
 * [_type == "info"] {...}
 `);
+
+export const tagQuery = defineQuery(`
+*[ _type == "tag" ]{
+    _id,
+    title,
+    slug,
+  }
+`);

@@ -1,8 +1,11 @@
 import Link from "next/link";
 import ScrollLink from "./scroll-link";
 import { Suspense } from "react";
+import { Tag } from "@/sanity.types";
 
-export default function Nav() {
+export default function Nav({ tags }: { tags: Tag[] }) {
+  console.log(tags);
+
   return (
     <nav className="grid !text-white fixed z-40 p-4 top-0 left-0 gap-4 w-full mix-blend-exclusion dark:mix-blend-difference grid-cols-4 md:grid-cols-12 items-start *:w-fit">
       <Suspense>
@@ -28,27 +31,19 @@ export default function Nav() {
           <ScrollLink href="work" scrollTo="#work">
             Selected Works
           </ScrollLink>
-          {/* <ScrollLink */}
-          {/*   params={{ name: "t", value: "graphics" }} */}
-          {/*   href="work" */}
-          {/*   scrollTo="#work" */}
-          {/* > */}
-          {/*   Graphics */}
-          {/* </ScrollLink> */}
-          {/* <ScrollLink */}
-          {/*   params={{ name: "t", value: "websites" }} */}
-          {/*   href="work" */}
-          {/*   scrollTo="#work" */}
-          {/* > */}
-          {/*   Websites */}
-          {/* </ScrollLink> */}
-          {/* <ScrollLink */}
-          {/*   params={{ name: "t", value: "interactive" }} */}
-          {/*   href="work" */}
-          {/*   scrollTo="#work" */}
-          {/* > */}
-          {/*   Interactive */}
-          {/* </ScrollLink> */}
+          {/* {tags.map( */}
+          {/*   (tag) => */}
+          {/*     tag.title && ( */}
+          {/*       <ScrollLink */}
+          {/*         key={tag._id} */}
+          {/*         params={{ name: "t", value: tag.slug?.current ?? "" }} */}
+          {/*         href="work" */}
+          {/*         scrollTo="#work" */}
+          {/*       > */}
+          {/*         {tag.title} */}
+          {/*       </ScrollLink> */}
+          {/*     ), */}
+          {/* )} */}
         </div>
         {/* Links */}
         <ScrollLink className="col-start-9" href="/about" scrollTo="#about">
