@@ -340,8 +340,9 @@ export type InfoQueryResult = Array<{
   timeZone?: string;
 }>;
 // Variable: tagQuery
-// Query: *[ _type == "tag" ]{    title,    slug,  }
+// Query: *[ _type == "tag" ]{    _id,    title,    slug,  }
 export type TagQueryResult = Array<{
+  _id: string;
   title: string | null;
   slug: Slug | null;
 }>;
@@ -356,6 +357,6 @@ declare module "@sanity/client" {
     "\n  *[_type == \"post\" && slug.current == $slug] [0] {\n    content,\n    \n  _id,\n  \"status\": select(_originalId in path(\"drafts.**\") => \"draft\", \"published\"),\n  \"title\": coalesce(title, \"Untitled\"),\n  \"slug\": slug.current,\n  excerpt,\n  coverImage,\n  \"date\": coalesce(date, _updatedAt),\n  \"author\": author->{\"name\": coalesce(name, \"Anonymous\"), picture},\n\n  }\n": PostQueryResult;
     "\n*[ _type == \"project\" ]{\n        _id,\n        _type,\n        _createdAt,\n        _updatedAt,\n        _rev,\n        name,\n        medium,\n        rank,\n        vimeo,\n        content,\n        thumbnail{ \n          \"video\": video.asset->url,\n          \"blurhash\": blurhash.asset->url,\n          },\n        \"slug\": slug.current,\n        program,\n        date\n      } | order(date desc)\n": AllPostQueryResult;
     "\n* [_type == \"info\"] {...}\n": InfoQueryResult;
-    "\n*[ _type == \"tag\" ]{\n    title,\n    slug,\n  }\n": TagQueryResult;
+    "\n*[ _type == \"tag\" ]{\n    _id,\n    title,\n    slug,\n  }\n": TagQueryResult;
   }
 }
