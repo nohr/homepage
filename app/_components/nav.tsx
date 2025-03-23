@@ -1,11 +1,8 @@
 // import Link from "next/link";
 import ScrollLink from "./scroll-link";
 import { Suspense } from "react";
-import { Tag } from "@/sanity.types";
 
-export default function Nav({ tags }: { tags: Tag[] }) {
-  // console.log(tags);
-
+export default function Nav() {
   return (
     <nav className="grid !text-white fixed z-40 p-4 top-0 left-0 gap-4 w-full mix-blend-exclusion dark:mix-blend-difference grid-cols-4 md:grid-cols-12 items-start *:w-fit">
       <Suspense>

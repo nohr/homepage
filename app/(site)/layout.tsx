@@ -58,7 +58,6 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const { isEnabled: isDraftMode } = await draftMode();
-  const data = await sanityFetch({ query: tagQuery });
   return (
     <html
       lang="en"
@@ -67,7 +66,7 @@ export default async function RootLayout({
       <body>
         <ScrollWrapper>
           <main>
-            <Nav tags={data} />
+            <Nav />
             {children}
           </main>
           {isDraftMode && <VisualEditing />}
