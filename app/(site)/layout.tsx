@@ -58,15 +58,16 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const { isEnabled: isDraftMode } = await draftMode();
+  const data = await sanityFetch({ query: tagQuery });
   return (
     <html
       lang="en"
-      className={`${inter.variable} text-[13px] bg-white text-black`}
+      className={`${inter.variable} text-[13px] bg-white text-black dark:bg-black dark:text-white`}
     >
       <body>
         <ScrollWrapper>
           <main>
-            <Nav />
+            <Nav tags={data} />
             {children}
           </main>
           {isDraftMode && <VisualEditing />}

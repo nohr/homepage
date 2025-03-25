@@ -8,7 +8,7 @@ export default async function Page() {
   const data = await sanityFetch({ query: infoQuery });
 
   return (
-    <Screen className="h-screen min-h-screen">
+    <Screen className="h-screen min-h-screen [&_p]:dark:text-white ">
       <div className="md:row-start-3 md:row-span-4 md:col-start-1 w-full">
         <Canva />
       </div>
@@ -18,7 +18,7 @@ export default async function Page() {
         //@ts-expect-error stupid types
         value={data[0].bio}
       />
-      <p className="md:col-start-9 row-start-6 col-span-3 self-end opacity-25">
+      <p className="md:col-start-9 row-start-6 col-span-3 self-end opacity-25 dark:opacity-75">
         © Aite Aigbe 2024
       </p>
     </Screen>

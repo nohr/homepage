@@ -77,7 +77,9 @@ export const Scan = memo(function Scan() {
   const mat = new THREE.PointsMaterial({
     size: size.width >= 768 ? 0.65 : size.width < 450 ? 0.2 : 0.75,
     fog: false,
-    color: "#000",
+    color: window.matchMedia("(prefers-color-scheme: dark)").matches
+      ? "#eee"
+      : "#000",
     toneMapped: false,
     opacity: 1,
     sizeAttenuation: false,
@@ -86,7 +88,7 @@ export const Scan = memo(function Scan() {
   return (
     <group
       ref={groupRef}
-      position={[size.width >= 768 ? -5 : 0, 70, -3.5]}
+      position={[size.width >= 768 ? -4 : 0, 70, -3.5]}
       rotation={[0, 0, 0]}
       scale={0.25}
       name="scan"
