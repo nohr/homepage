@@ -28,21 +28,16 @@ export default function VimeoVideo({ id }: { id: number | undefined }) {
     if (playerRef.current !== null) {
       const player = new Player(playerRef.current, options);
 
-      // player.on("play", () => {
-      //   console.log("play");
-      // });
       player.on("bufferend", () => setLoaded(true));
     }
   }, [id]);
 
   return (
     <>
-      <div className="h-full" ref={playerRef}></div>
       {!loaded ? (
-        <div className="h-full w-full flex justify-center">
-          <PiSpinnerBold className="my-auto opacity-50 text-3xl animate-spin" />
-        </div>
+        <PiSpinnerBold className="absolute text-3xl animate-spin" />
       ) : null}
+      <div className="h-full w-full" ref={playerRef}></div>
     </>
   );
 }

@@ -1,7 +1,7 @@
 import { sanityFetch } from "@/sanity/lib/fetch";
 import Screen from "../_components/screen";
 import { infoQuery } from "@/sanity/lib/queries";
-import CustomPortableText from "./portable-text";
+import CustomPortableText from "@/app/_components/portable-text";
 import Canva from "../(3D)/Canvas";
 
 export default async function Page() {
@@ -19,7 +19,7 @@ export default async function Page() {
         value={data[0].bio}
       />
       <p className="md:col-start-9 row-start-6 col-span-3 self-end opacity-25 dark:opacity-75">
-        © Aite Aigbe 2024
+        © Aite Aigbe 2025
       </p>
     </Screen>
   );
