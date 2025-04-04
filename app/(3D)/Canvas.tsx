@@ -11,6 +11,10 @@ export default function Canva() {
       className="!pointer-events-none !fixed !top-0"
       eventSource={document?.body}
       eventPrefix="client"
+      dpr={[1, 2]}
+      gl={{
+        powerPreference: "high-performance",
+      }}
     >
       <Scan />
     </Canvas>

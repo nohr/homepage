@@ -9,24 +9,20 @@ export default function VimeoVideo({ id }: { id: number | undefined }) {
   const playerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const options = {
-      id: id,
-      loop: true,
-      autoplay: true,
-      muted: true,
-      controls: false,
-      airplay: false,
-      chromecast: false,
-      background: true,
-      autopause: false,
-      responsive: true,
-      playsinline: true,
-      pip: false,
-      dnt: true,
-    };
-
     if (playerRef.current !== null) {
-      const player = new Player(playerRef.current, options);
+      const player = new Player(playerRef.current, {
+        id: id,
+        loop: true,
+        autoplay: false,
+        muted: true,
+        controls: false,
+        background: true,
+        autopause: false,
+        responsive: true,
+        playsinline: true,
+        pip: false,
+        dnt: true,
+      });
 
       player.on("bufferend", () => setLoaded(true));
     }

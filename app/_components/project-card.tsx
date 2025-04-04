@@ -5,8 +5,10 @@ import VimeoVideo from "@/app/_components/vimeo-video";
 
 export default function ProjectCard({
   project,
+  filter,
 }: {
   project: AllPostQueryResult[number];
+  filter: string | null;
 }) {
   const rank_styles = [
     "md:col-span-2 h-min",
@@ -26,7 +28,9 @@ export default function ProjectCard({
     "aspect-square",
   ];
   return (
-    <div className={`grid gap-2 ${rank_styles[project.rank ?? 0]}`}>
+    <div
+      className={`grid gap-2 ${rank_styles[filter ? 0 : (project.rank ?? 0)]}`}
+    >
       {/* Image/Video */}
       <div
         className={`flex justify-center items-center row-start-1 col-span-2 row-span-2 pointer-events-none relative h-full overflow-hidden ${image_styles[project.rank ?? 0]}`}
