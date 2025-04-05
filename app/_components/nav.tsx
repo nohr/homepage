@@ -5,13 +5,13 @@ import { TagQueryResult } from "@/sanity.types";
 
 export default function Nav({ tags }: { tags: TagQueryResult }) {
   return (
-    <nav className="grid !text-white fixed z-40 p-4 top-0 left-0 gap-4 w-full mix-blend-exclusion dark:mix-blend-difference grid-cols-4 md:grid-cols-12 items-start *:w-fit">
+    <nav className="grid !text-white fixed z-40 p-4 top-0 left-0 gap-4 w-full grid-span-full h-[16.67svh] mix-blend-exclusion dark:mix-blend-difference grid-cols-6 md:grid-cols-12 items-start *:w-fit">
       <Suspense>
         {/* Home */}
         <ScrollLink
           href="/"
           scrollTo={0}
-          className="col-span-4 cursor-pointer flex flex-col gap-2"
+          className="order-1 col-span-2 md:col-span-4 cursor-pointer flex flex-col gap-2"
         >
           aitenoria aigbe
           <svg
@@ -25,7 +25,7 @@ export default function Nav({ tags }: { tags: TagQueryResult }) {
           </svg>
         </ScrollLink>
         {/* Tags */}
-        <div className="flex flex-col col-start-5 col-span-2 *:w-fit *:cursor-pointer">
+        <div className="flex flex-col order-2 justify-between h-full md:h-min md:col-start-5 col-span-2 *:w-fit *:cursor-pointer">
           <ScrollLink href="work" scrollTo="#work">
             Selected Works
           </ScrollLink>
@@ -44,11 +44,15 @@ export default function Nav({ tags }: { tags: TagQueryResult }) {
           )}
         </div>
         {/* Links */}
-        <ScrollLink className="col-start-9" href="/about" scrollTo="#about">
+        <ScrollLink
+          className="order-3 col-start-5 md:col-start-9"
+          href="/about"
+          scrollTo="#about"
+        >
           ABOUT
         </ScrollLink>
         <a
-          className="col-start-12"
+          className="order-3 col-start-6 justify-self-end md:col-start-12"
           target="_blank"
           href="https://aitenoria.gumroad.com"
           rel="noreferrer noopener"

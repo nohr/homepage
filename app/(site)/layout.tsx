@@ -12,6 +12,7 @@ import Nav from "@components/nav";
 import ScrollWrapper from "../_components/scroll-wrapper";
 import { tagQuery } from "@/sanity/lib/queries";
 import { sanityFetch } from "@/sanity/lib/fetch";
+import Canva from "../(3D)/Canvas";
 // import { resolveOpenGraphImage } from "@/sanity/lib/utils";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -74,6 +75,7 @@ export default async function RootLayout({
           <SpeedInsights />
           <Analytics />
         </ScrollWrapper>
+        <Canva />
       </body>
     </html>
   );
