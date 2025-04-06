@@ -13,7 +13,7 @@ export default async function Page() {
         //@ts-expect-error stupid types
         value={data[0].bio}
       />
-      <p className="md:col-start-6 md:grid-span-3 row-start-6 self-end opacity-25 dark:opacity-75">
+      <p className="md:col-start-5 md:grid-span-3 row-start-6 self-end opacity-25 dark:opacity-75">
         © aite aigbe 2025
       </p>
     </Screen>
