@@ -7,6 +7,7 @@ import { PiSpinnerBold } from "react-icons/pi";
 export default function VimeoVideo({ id }: { id: number | undefined }) {
   const [loaded, setLoaded] = useState(false);
   const playerRef = useRef<HTMLDivElement>(null);
+  const portraitStyle = id === 1059506390 ? "!flex-[0.4]" : "";
 
   useEffect(() => {
     if (playerRef.current !== null) {
@@ -33,7 +34,7 @@ export default function VimeoVideo({ id }: { id: number | undefined }) {
       {!loaded ? (
         <PiSpinnerBold className="absolute text-3xl animate-spin" />
       ) : null}
-      <div className="h-full w-full" ref={playerRef}></div>
+      <div className={`flex-1 ${portraitStyle}`} ref={playerRef}></div>
     </>
   );
 }

@@ -49,7 +49,7 @@ export default function Nav({ tags }: { tags: TagQueryResult }) {
           href="/about"
           scrollTo="#about"
         >
-          ABOUT
+          About
         </ScrollLink>
         <a
           className="order-3 col-start-6 justify-self-end md:col-start-12"
@@ -57,7 +57,7 @@ export default function Nav({ tags }: { tags: TagQueryResult }) {
           href="https://aitenoria.gumroad.com"
           rel="noreferrer noopener"
         >
-          SHOP
+          Shop
         </a>
       </Suspense>
     </nav>
