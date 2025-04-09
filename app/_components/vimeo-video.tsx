@@ -4,10 +4,18 @@ import { useEffect, useRef, useState } from "react";
 import Player from "@vimeo/player";
 import { PiSpinnerBold } from "react-icons/pi";
 
-export default function VimeoVideo({ id }: { id: number | undefined }) {
+export default function VimeoVideo({
+  id,
+  rank,
+  blurhash,
+}: {
+  id: number | undefined;
+  rank: string | null;
+  blurhash?: string;
+}) {
   const [loaded, setLoaded] = useState(false);
   const playerRef = useRef<HTMLDivElement>(null);
-  const portraitStyle = id === 1059506390 ? "!flex-[0.4]" : "";
+  const portraitStyle = rank === "3" ? "!flex-[0.4]" : "";
 
   useEffect(() => {
     if (playerRef.current !== null) {
@@ -32,7 +40,9 @@ export default function VimeoVideo({ id }: { id: number | undefined }) {
   return (
     <>
       {!loaded ? (
-        <PiSpinnerBold className="absolute text-3xl animate-spin" />
+        blurhash ? null : (
+          <PiSpinnerBold className="absolute text-3xl animate-spin" />
+        )
       ) : null}
       <div className={`flex-1 ${portraitStyle}`} ref={playerRef}></div>
     </>

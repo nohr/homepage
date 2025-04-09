@@ -9,17 +9,14 @@ export default function useQueryString() {
       if (name && value) {
         const params = new URLSearchParams(searchParams.toString());
 
-        if (params.get("pi")) params.delete("pi");
-        if (params.get("pv")) params.delete("pv");
-
+        if (params.get("p")) params.delete("p");
         params.set(name, value);
 
         return "?" + params.toString();
       } else {
         const nextParams = new URLSearchParams(searchParams.toString());
         nextParams.delete("t");
-        nextParams.delete("pi");
-        nextParams.delete("pv");
+        nextParams.delete("p");
 
         return "";
       }

@@ -5,7 +5,7 @@ import { TagQueryResult } from "@/sanity.types";
 
 export default function Nav({ tags }: { tags: TagQueryResult }) {
   return (
-    <nav className="grid !text-white fixed z-40 p-4 top-0 left-0 gap-4 w-full grid-span-full h-[16.67svh] mix-blend-exclusion dark:mix-blend-difference grid-cols-6 md:grid-cols-12 items-start *:w-fit">
+    <nav className="grid !text-white fixed z-40 p-4 top-0 left-0 gap-4 w-full grid-span-full h-[16.67svh] md:h-fit md:pb-0 mix-blend-exclusion dark:mix-blend-difference grid-cols-6 md:grid-cols-12 items-start *:w-fit">
       <Suspense>
         {/* Home */}
         <ScrollLink

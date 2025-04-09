@@ -7,19 +7,6 @@ import { PCDLoader } from "three/addons/loaders/PCDLoader.js";
 import * as THREE from "three";
 import { usePathname } from "next/navigation";
 
-// Simple throttle utility
-function throttle<T extends (...args: any[]) => any>(func: T, limit: number): (...args: Parameters<T>) => ReturnType<T> | undefined {
-  let lastCall = 0;
-  return function(...args: Parameters<T>): ReturnType<T> | undefined {
-    const now = Date.now();
-    if (now - lastCall >= limit) {
-      lastCall = now;
-      return func(...args);
-    }
-    return undefined;
-  };
-}
-
 export const Scan = memo(function Scan() {
   const { size } = useThree();
   const [head, body] = useLoader(PCDLoader, [
@@ -33,7 +20,7 @@ export const Scan = memo(function Scan() {
   const mod = 3.2;
   const frameCount = useRef(0);
   const lastPointer = useRef(new Vector2());
-  
+
   // Memoize the material to prevent recreation on each render
   const mat = useMemo(() => {
     return new THREE.PointsMaterial({
@@ -49,23 +36,26 @@ export const Scan = memo(function Scan() {
   }, [size.width]);
 
   // Optimize mouse movement handler with throttling
-  const handleMouseMove = useCallback((mouse: Vector2) => {
-    // Skip small movements to reduce calculations
-    if (
-      lastPointer.current && 
-      Math.abs(mouse.x - lastPointer.current.x) < 0.001 && 
-      Math.abs(mouse.y - lastPointer.current.y) < 0.001
-    ) {
-      return;
-    }
-    
-    // Update last pointer position
-    lastPointer.current.copy(mouse);
-    
-    const tar = new Vector3((mouse.x * mod * 2) / 1, mouse.y * mod, 3);
-    headRef.current?.lookAt(tar.x, tar.y - 1.5, tar.z);
-    bodyRef.current?.lookAt(tar.x * 0.25, tar.y / 2, 4);
-  }, [mod]);
+  const handleMouseMove = useCallback(
+    (mouse: Vector2) => {
+      // Skip small movements to reduce calculations
+      if (
+        lastPointer.current &&
+        Math.abs(mouse.x - lastPointer.current.x) < 0.001 &&
+        Math.abs(mouse.y - lastPointer.current.y) < 0.001
+      ) {
+        return;
+      }
+
+      // Update last pointer position
+      lastPointer.current.copy(mouse);
+
+      const tar = new Vector3((mouse.x * mod * 2) / 1, mouse.y * mod, 3);
+      headRef.current?.lookAt(tar.x, tar.y - 1.5, tar.z);
+      bodyRef.current?.lookAt(tar.x * 0.25, tar.y / 2, 4);
+    },
+    [mod],
+  );
 
   // Optimize breathing animation
   const handleBreath = useCallback(() => {
@@ -80,16 +70,16 @@ export const Scan = memo(function Scan() {
 
   useFrame(({ pointer, scene }) => {
     if (!groupRef.current) return;
-    
+
     // Handle path changes
     if (pathname !== "/") {
       groupRef.current.position.lerp(
         new Vector3(
           groupRef.current.position.x,
           groupRef.current.position.y,
-          6
+          6,
         ),
-        0.05
+        0.05,
       );
       setTimeout(() => {
         if (groupRef.current) {
@@ -103,15 +93,15 @@ export const Scan = memo(function Scan() {
       if (!groupRef.current.parent) {
         scene.add(groupRef.current);
       }
-      
+
       if (groupRef.current.position.z > -3.5) {
         groupRef.current.position.lerp(
           new Vector3(
             groupRef.current.position.x,
             groupRef.current.position.y,
-            -3.5
+            -3.5,
           ),
-          0.05
+          0.05,
         );
       }
       groupRef.current.visible = true;
@@ -119,12 +109,12 @@ export const Scan = memo(function Scan() {
 
     // Increment frame counter
     frameCount.current += 1;
-    
+
     // Only process mouse movements every other frame
     if (frameCount.current % 2 === 0) {
       handleMouseMove(pointer);
     }
-    
+
     // Only update breathing every 3 frames
     if (frameCount.current % 3 === 0) {
       handleBreath();
