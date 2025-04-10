@@ -75,7 +75,7 @@ export default async function RootLayout({
           <SpeedInsights />
           <Analytics />
         </ScrollWrapper>
-        {/* <Canva /> */}
+        <Canva />
       </body>
     </html>
   );

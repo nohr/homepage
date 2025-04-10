@@ -1,15 +1,9 @@
 "use client";
 
 import { AllPostQueryResult } from "@/sanity.types";
-import { clsx } from "clsx";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { motion } from "motion/react";
 import { useEffect, useState } from "react";
 import useQueryString from "@/hooks/useQueryString";
-import { PortableText } from "next-sanity";
-import { AiOutlineClose } from "react-icons/ai";
-import PreviewContent from "./preview-content";
-import { useLenis } from "lenis/react";
 import ProjectEntry from "./project-entry";
 
 export default function ProjectList({
@@ -21,15 +15,16 @@ export default function ProjectList({
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
-  const lenis = useLenis();
   const createQueryString = useQueryString();
   const tag = searchParams.get("t");
 
   useEffect(() => {
-    if (!searchParams.get("p")) return;
+    if (!searchParams.get("p")) {
+      setActive("");
+      return;
+    }
     const p = JSON.parse(searchParams.get("p") ?? "");
     if (p.p) setActive(p.p);
-    else setActive("");
   }, [searchParams, tag]);
 
   function openPreview(project: AllPostQueryResult[number]) {
@@ -61,7 +56,7 @@ export default function ProjectList({
   }
 
   return (
-    <div className="flex flex-col gap-4 md:gap-8 order-1 col-span-full">
+    <div className="flex flex-col gap-4 mb-8 md:mb-0 md:gap-8 order-1 col-span-full">
       {projects
         .filter((project) => (!tag ? true : project.medium === tag))
         .map((project) => (
