@@ -10,7 +10,7 @@ export default async function WorkPage() {
 
   return (
     <Screen id="work" className="!pt-[16.67svh] min-h-screen">
-      <Suspense>
+      <Suspense fallback={null}>
         <ProjectList projects={data} />
       </Suspense>
     </Screen>
