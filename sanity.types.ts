@@ -98,6 +98,7 @@ export type BlockContent = Array<{
     _weak?: boolean;
     [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
   };
+  media?: unknown;
   hotspot?: SanityImageHotspot;
   crop?: SanityImageCrop;
   alt?: string;
@@ -133,6 +134,7 @@ export type Project = {
         _weak?: boolean;
         [internalGroqTypeReferenceTo]?: "sanity.fileAsset";
       };
+      media?: unknown;
       _type: "file";
     };
     blurhash?: {
@@ -142,6 +144,7 @@ export type Project = {
         _weak?: boolean;
         [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
       };
+      media?: unknown;
       hotspot?: SanityImageHotspot;
       crop?: SanityImageCrop;
       _type: "image";
@@ -155,6 +158,7 @@ export type Project = {
       _weak?: boolean;
       [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
     };
+    media?: unknown;
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
     _type: "Image";
@@ -168,6 +172,7 @@ export type Project = {
         _weak?: boolean;
         [internalGroqTypeReferenceTo]?: "sanity.fileAsset";
       };
+      media?: unknown;
       _type: "file";
     };
     alt?: string;

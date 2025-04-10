@@ -4,29 +4,34 @@ import { useEffect, useRef, useState } from "react";
 import Player from "@vimeo/player";
 import { PiSpinnerBold } from "react-icons/pi";
 
-export default function VimeoVideo({ id }: { id: number | undefined }) {
+export default function VimeoVideo({
+  id,
+  rank,
+  blurhash,
+}: {
+  id: number | undefined;
+  rank: string | null;
+  blurhash?: string;
+}) {
   const [loaded, setLoaded] = useState(false);
   const playerRef = useRef<HTMLDivElement>(null);
+  const portraitStyle = rank === "3" ? "!flex-[0.4]" : "";
 
   useEffect(() => {
-    const options = {
-      id: id,
-      loop: true,
-      autoplay: true,
-      muted: true,
-      controls: false,
-      airplay: false,
-      chromecast: false,
-      background: true,
-      autopause: false,
-      responsive: true,
-      playsinline: true,
-      pip: false,
-      dnt: true,
-    };
-
     if (playerRef.current !== null) {
-      const player = new Player(playerRef.current, options);
+      const player = new Player(playerRef.current, {
+        id: id,
+        loop: true,
+        autoplay: false,
+        muted: true,
+        controls: false,
+        background: true,
+        autopause: false,
+        responsive: true,
+        playsinline: true,
+        pip: false,
+        dnt: true,
+      });
 
       player.on("bufferend", () => setLoaded(true));
     }
@@ -35,9 +40,11 @@ export default function VimeoVideo({ id }: { id: number | undefined }) {
   return (
     <>
       {!loaded ? (
-        <PiSpinnerBold className="absolute text-3xl animate-spin" />
+        blurhash ? null : (
+          <PiSpinnerBold className="absolute text-3xl animate-spin" />
+        )
       ) : null}
-      <div className="h-full w-full" ref={playerRef}></div>
+      <div className={`flex-1 ${portraitStyle}`} ref={playerRef}></div>
     </>
   );
 }
