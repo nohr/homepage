@@ -18,7 +18,8 @@ export default function ProjectEntry({
       key={project._id}
       id={project._id}
       className={clsx(
-        active === project._id && "mb-4 md:!grid-rows-[1.25rem,_1fr]",
+        active === project._id &&
+          "mb-4 md:!grid-rows-[1.25rem,_1fr] md:h-[50vh]",
         "flex flex-col gap-4 md:!grid md:grid-cols-6",
       )}
     >
@@ -36,7 +37,7 @@ export default function ProjectEntry({
 
       {active === project._id && (
         <>
-          <PreviewContent className="md:order-last md:col-start-1 md:row-start-1 md:row-span-2 md:col-span-4" />
+          <PreviewContent className="md:order-last md:col-start-1 md:row-start-1 md:row-span-2 md:col-span-4 md:h-auto" />
 
           <span className="dark:[&_*]:!text-zinc-400 [&_*]:!text-zinc-600 md:pl-1.5 md:col-span-2 ">
             {project.content !== null && project.content !== undefined ? (
@@ -45,13 +46,6 @@ export default function ProjectEntry({
           </span>
         </>
       )}
-
-      {/* {active === project._id && ( */}
-      {/*   <> */}
-      {/*     <br /> */}
-      {/*     <br /> */}
-      {/*   </> */}
-      {/* )} */}
     </div>
   );
 }

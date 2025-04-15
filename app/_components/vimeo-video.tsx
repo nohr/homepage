@@ -10,23 +10,20 @@ export default function VimeoVideo({
   blurhash,
 }: {
   id: number | undefined;
-  rank: string | null;
+  rank: number | null;
   blurhash?: string;
 }) {
   const [loaded, setLoaded] = useState(false);
   const playerRef = useRef<HTMLDivElement>(null);
-  const portraitStyle = rank === "3" ? "!flex-[0.4]" : "";
+  const portraitStyle =
+    rank === 3 ? "h-[50svh] md:h-full aspect-[9/16]" : "flex-1 ";
 
   useEffect(() => {
     if (playerRef.current !== null) {
       const player = new Player(playerRef.current, {
         id: id,
-        loop: true,
-        autoplay: false,
         muted: true,
-        controls: false,
         background: true,
-        autopause: false,
         responsive: true,
         playsinline: true,
         pip: false,
@@ -44,7 +41,10 @@ export default function VimeoVideo({
           <PiSpinnerBold className="absolute text-3xl animate-spin" />
         )
       ) : null}
-      <div className={`flex-1 ${portraitStyle}`} ref={playerRef}></div>
+      <div
+        className={`[&_iframe]:shadow-lg ${portraitStyle}`}
+        ref={playerRef}
+      ></div>
     </>
   );
 }
