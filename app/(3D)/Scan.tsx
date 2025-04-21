@@ -1,7 +1,7 @@
 export const dynamic = "force-dynamic";
 
 import { useFrame, useLoader, useThree } from "@react-three/fiber";
-import { memo, useRef, useMemo, useCallback } from "react";
+import { memo, useRef, useMemo, useCallback, useEffect } from "react";
 import { Group, Vector2, Vector3 } from "three";
 import { PCDLoader } from "three/addons/loaders/PCDLoader.js";
 import * as THREE from "three";
@@ -67,6 +67,18 @@ export const Scan = memo(function Scan() {
   const groupPosition = useMemo(() => {
     return [size.width >= 768 ? -4 : 0, 70, -3.5] as [number, number, number];
   }, [size.width]);
+
+  useEffect(() => {
+    if (groupRef.current)
+      groupRef.current.position.lerp(
+        new Vector3(
+          groupRef.current.position.x,
+          groupRef.current.position.y,
+          6,
+        ),
+        0.05,
+      );
+  }, []);
 
   useFrame(({ pointer, scene }) => {
     if (!groupRef.current) return;

@@ -42,7 +42,7 @@ export default function VimeoVideo({
         )
       ) : null}
       <div
-        className={`[&_iframe]:shadow-lg ${portraitStyle}`}
+        className={`${loaded && "[&_iframe]:shadow-lg"} ${portraitStyle}`}
         ref={playerRef}
       ></div>
     </>

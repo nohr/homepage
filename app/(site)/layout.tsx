@@ -14,7 +14,6 @@ import { allPostQuery, infoQuery, tagQuery } from "@/sanity/lib/queries";
 import { sanityFetch } from "@/sanity/lib/fetch";
 import Canva from "../(3D)/Canvas";
 import Content from "./content";
-import { Suspense } from "react";
 // import { resolveOpenGraphImage } from "@/sanity/lib/utils";
 
 export async function generateMetadata(): Promise<Metadata> {
