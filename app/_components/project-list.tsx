@@ -19,12 +19,11 @@ export default function ProjectList({
   const tag = searchParams.get("t");
 
   useEffect(() => {
-    if (!searchParams.get("p")) {
+    const p = searchParams.get("p");
+    if (!p) {
       setActive("");
       return;
-    }
-    const p = JSON.parse(searchParams.get("p") ?? "");
-    if (p.p) setActive(p.p);
+    } else setActive(p);
   }, [searchParams, tag]);
 
   function openPreview(project: AllPostQueryResult[number]) {
@@ -39,24 +38,13 @@ export default function ProjectList({
       return;
     }
 
-    // lenis?.scrollTo(`#${project._id}`);
-    router.push(
-      pathname +
-        createQueryString(
-          "p",
-          JSON.stringify({
-            p: project._id,
-            pv: project.vimeo,
-            pi: project.thumbnail?.blurhash,
-            r: project.rank,
-          }),
-        ),
-      { scroll: false },
-    );
+    router.push(pathname + createQueryString("p", project._id), {
+      scroll: false,
+    });
   }
 
   return (
-    <div className="flex flex-col gap-4 mb-8 md:mb-0 md:gap-8 order-1 col-span-full">
+    <div className="flex flex-col gap-4 mb-8 px-4 md:px-0 md:mb-0 md:gap-8 order-1 col-span-full">
       {projects
         .filter((project) => (!tag ? true : project.medium === tag))
         .map((project) => (

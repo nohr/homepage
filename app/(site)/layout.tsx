@@ -10,9 +10,11 @@ import { draftMode } from "next/headers";
 import Nav from "@components/nav";
 
 import ScrollWrapper from "../_components/scroll-wrapper";
-import { tagQuery } from "@/sanity/lib/queries";
+import { allPostQuery, infoQuery, tagQuery } from "@/sanity/lib/queries";
 import { sanityFetch } from "@/sanity/lib/fetch";
 import Canva from "../(3D)/Canvas";
+import Content from "./content";
+import { Suspense } from "react";
 // import { resolveOpenGraphImage } from "@/sanity/lib/utils";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -59,7 +61,10 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const { isEnabled: isDraftMode } = await draftMode();
-  const data = await sanityFetch({ query: tagQuery });
+  const tags = await sanityFetch({ query: tagQuery });
+  const info = await sanityFetch({ query: infoQuery });
+  const posts = await sanityFetch({ query: allPostQuery });
+
   return (
     <html
       lang="en"
@@ -67,9 +72,10 @@ export default async function RootLayout({
     >
       <body>
         <ScrollWrapper>
+          <Nav tags={tags} />
           <main>
-            <Nav tags={data} />
             {children}
+            <Content info={info} posts={posts} />
           </main>
           {isDraftMode && <VisualEditing />}
           <SpeedInsights />

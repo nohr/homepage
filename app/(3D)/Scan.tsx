@@ -5,7 +5,7 @@ import { memo, useRef, useMemo, useCallback } from "react";
 import { Group, Vector2, Vector3 } from "three";
 import { PCDLoader } from "three/addons/loaders/PCDLoader.js";
 import * as THREE from "three";
-import { usePathname } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 
 export const Scan = memo(function Scan() {
   const { size } = useThree();
@@ -16,7 +16,7 @@ export const Scan = memo(function Scan() {
   const headRef = useRef<THREE.Points>(null);
   const bodyRef = useRef<THREE.Points>(null);
   const groupRef = useRef<Group>(null);
-  const pathname = usePathname();
+  const searchParams = useSearchParams();
   const mod = 3.2;
   const frameCount = useRef(0);
   const lastPointer = useRef(new Vector2());
@@ -27,8 +27,8 @@ export const Scan = memo(function Scan() {
       size: size.width >= 768 ? 0.65 : size.width < 450 ? 0.2 : 0.75,
       fog: false,
       color: window.matchMedia("(prefers-color-scheme: dark)").matches
-        ? "#eee"
-        : "#000",
+        ? "#a3a3a3"
+        : "#e7e7e7",
       toneMapped: false,
       opacity: 1,
       sizeAttenuation: false,
@@ -72,7 +72,7 @@ export const Scan = memo(function Scan() {
     if (!groupRef.current) return;
 
     // Handle path changes
-    if (pathname !== "/") {
+    if (searchParams.get("p")) {
       groupRef.current.position.lerp(
         new Vector3(
           groupRef.current.position.x,

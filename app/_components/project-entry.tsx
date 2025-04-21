@@ -37,7 +37,10 @@ export default function ProjectEntry({
 
       {active === project._id && (
         <>
-          <PreviewContent className="md:order-last md:col-start-1 md:row-start-1 md:row-span-2 md:col-span-4 md:h-auto" />
+          <PreviewContent
+            project={project}
+            className="md:order-last md:col-start-1 md:row-start-1 md:row-span-2 md:col-span-4 md:h-auto"
+          />
 
           <span className="dark:[&_*]:!text-zinc-400 [&_*]:!text-zinc-600 md:pl-1.5 md:col-span-2 ">
             {project.content !== null && project.content !== undefined ? (
