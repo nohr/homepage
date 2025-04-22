@@ -9,6 +9,9 @@ export default function Canva() {
     <Canvas
       linear
       className="!pointer-events-none !fixed !top-0"
+      style={{
+        height: "100lvh",
+      }}
       eventSource={document?.body}
       eventPrefix="client"
       dpr={[1, 2]}
