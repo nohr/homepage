@@ -22,8 +22,8 @@ export default function PreviewContent({
   const lenis = useLenis();
 
   useEffect(() => {
-    if (!document.querySelector(`#${CSS.escape(p)}`)) return;
-    lenis?.scrollTo(`#${CSS.escape(p)}`, { offset: -90 });
+    if (p && !document.querySelector(`#${CSS.escape(p)}`)) return;
+    if (p) lenis?.scrollTo(`#${CSS.escape(p)}`, { offset: -90 });
   }, [lenis, p]);
 
   if (!searchParams.get("p")) return null;
