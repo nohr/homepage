@@ -38,6 +38,7 @@ export const Scan = memo(function Scan() {
   // Optimize mouse movement handler with throttling
   const handleMouseMove = useCallback(
     (mouse: Vector2) => {
+      return;
       // Skip small movements to reduce calculations
       if (
         lastPointer.current &&

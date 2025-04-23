@@ -5,6 +5,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import useQueryString from "@/hooks/useQueryString";
 import ProjectEntry from "./project-entry";
+import { useLenis } from "lenis/react";
 
 export default function ProjectList({
   projects,
@@ -15,6 +16,7 @@ export default function ProjectList({
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
+  const lenis = useLenis();
   const createQueryString = useQueryString();
   const tag = searchParams.get("t");
 
@@ -22,9 +24,10 @@ export default function ProjectList({
     const p = searchParams.get("p");
     if (!p) {
       setActive("");
+      lenis?.scrollTo("#work");
       return;
     } else setActive(p);
-  }, [searchParams, tag]);
+  }, [searchParams, tag, lenis]);
 
   function openPreview(project: AllPostQueryResult[number]) {
     if (active === project._id) {
