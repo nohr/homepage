@@ -17,6 +17,7 @@
     "@portabletext/react": "^3.2.1",
     "@react-three/drei": "^10.0.6",
     "@react-three/fiber": "^9.1.2",
+    "@react-three/flex": "^1.0.1",
     "@sanity/assist": "^3.2.2",
     "@sanity/client": "^6.29.0",
     "@sanity/icons": "^3.7.0",

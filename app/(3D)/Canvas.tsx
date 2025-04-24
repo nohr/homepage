@@ -9,7 +9,7 @@ export default function Canva() {
     <Canvas
       suppressHydrationWarning={true}
       linear
-      className="!pointer-events-none !fixed !top-0"
+      className="!pointer-events-none !fixed !top-0 !-z-10"
       style={{
         height: "100lvh",
       }}
@@ -19,6 +19,7 @@ export default function Canva() {
       gl={{
         powerPreference: "high-performance",
       }}
+      camera={{ position: [0, 0.2, 3.2], zoom: 2 }}
     >
       <Scene />
     </Canvas>

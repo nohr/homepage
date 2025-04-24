@@ -21,6 +21,7 @@ export default function Content({
   useEffect(() => {
     if (pathname.split("/")[1])
       lenis?.scrollTo(`#${pathname.split("/")[1]}`, { offset: -90 });
+    else lenis?.scrollTo(0);
   }, [pathname, lenis]);
 
   return (

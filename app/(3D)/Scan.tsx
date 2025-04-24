@@ -26,11 +26,11 @@ export const Scan = memo(function Scan() {
   // Memoize the material to prevent recreation on each render
   const mat = useMemo(() => {
     return new THREE.PointsMaterial({
-      size: size.width >= 768 ? 0.65 : size.width < 450 ? 0.2 : 8.75,
+      size: size.width >= 768 ? 0.65 : size.width < 450 ? 0.2 : 0.75,
       fog: false,
       color: window.matchMedia("(prefers-color-scheme: dark)").matches
-        ? "#a3a3a3"
-        : "#a3a3a3",
+        ? "#b3b3b3"
+        : "#c3c3c3",
       toneMapped: false,
       opacity: 1,
       sizeAttenuation: false,
@@ -40,7 +40,7 @@ export const Scan = memo(function Scan() {
   // Optimize mouse movement handler with throttling
   const handleMouseMove = useCallback(
     (mouse: Vector2) => {
-      if (size.width < 768) return;
+      if (size.width < 768 || !groupRef.current) return;
       // Skip small movements to reduce calculations
       if (
         lastPointer.current &&
@@ -53,22 +53,32 @@ export const Scan = memo(function Scan() {
       // Update last pointer position
       lastPointer.current.copy(mouse);
 
-      const tar = new Vector3((mouse.x * mod * 2) / 1, mouse.y * mod, 3);
+      const tar = new Vector3((mouse.x * mod * 2) / 1, mouse.y * mod - 2, 3);
       headRef.current?.lookAt(tar.x, tar.y - 1.5, tar.z);
-      bodyRef.current?.lookAt(tar.x * 0.25, tar.y / 2, 4);
+      bodyRef.current?.lookAt(
+        tar.x * 0.25,
+        tar.y / 2,
+        groupRef.current?.position.z + 2,
+      );
     },
     [size.width],
   );
 
   // Optimize breathing animation
   const handleBreath = useCallback(() => {
+    if (searchParams.get("p") || !groupRef.current) return;
+    groupRef.current.position.y += Math.sin(Date.now() / 1500) / 250;
+  }, [searchParams]);
+
+  const handleReturnAttention = useCallback(() => {
     if (!groupRef.current) return;
-    groupRef.current.position.y = Math.sin(Date.now() / 1500) / 10;
+    headRef.current?.lookAt(0, -1.5, groupRef.current?.position.z + 2);
+    bodyRef.current?.lookAt(0, -1.5, groupRef.current?.position.z + 2);
   }, []);
 
   // Memoize position calculation
   const groupPosition = useMemo(() => {
-    return [size.width >= 768 ? -4 : 0, 70, -3.5] as [number, number, number];
+    return [size.width >= 768 ? 0 : 0, 1.5, -3.5] as [number, number, number];
   }, [size.width]);
 
   useEffect(() => {
@@ -82,14 +92,14 @@ export const Scan = memo(function Scan() {
         ),
         0.05,
       );
+      handleReturnAttention();
     }
-  }, [setLoaded]);
+  }, [handleReturnAttention, setLoaded]);
 
-  useFrame(({ pointer, scene }) => {
-    if (!groupRef.current) return;
-
-    // Handle path changes
-    if (searchParams.get("p")) {
+  const handleExitScene = useCallback(
+    (scene: THREE.Scene) => {
+      if (!groupRef.current) return;
+      handleReturnAttention();
       groupRef.current.position.lerp(
         new Vector3(
           groupRef.current.position.x,
@@ -104,6 +114,16 @@ export const Scan = memo(function Scan() {
           scene.remove(groupRef.current);
         }
       }, 750);
+    },
+    [handleReturnAttention],
+  );
+
+  useFrame(({ pointer, scene }) => {
+    if (!groupRef.current) return;
+
+    // Handle path changes
+    if (searchParams.get("p")) {
+      handleExitScene(scene);
       return;
     } else {
       // Only add to scene if not already there
@@ -121,20 +141,23 @@ export const Scan = memo(function Scan() {
           0.05,
         );
       }
+
       groupRef.current.visible = true;
-    }
 
-    // Increment frame counter
-    frameCount.current += 1;
+      // Increment frame counter
+      frameCount.current += 1;
 
-    // Only process mouse movements every other frame
-    if (frameCount.current % 2 === 0) {
-      handleMouseMove(pointer);
-    }
+      // Wait before only processing mouse movements every other frame
+      setTimeout(() => {
+        if (frameCount.current % 2 === 0) {
+          handleMouseMove(pointer);
+        }
+      }, 1750);
 
-    // Only update breathing every 3 frames
-    if (frameCount.current % 3 === 0) {
-      handleBreath();
+      // Only update breathing every 3 frames
+      if (frameCount.current % 3 === 0) {
+        handleBreath();
+      }
     }
   });
 
@@ -143,7 +166,7 @@ export const Scan = memo(function Scan() {
       ref={groupRef}
       position={groupPosition}
       rotation={[0, 0, 0]}
-      scale={0.25}
+      scale={size.width < 768 ? 0.07 : 0.16}
       name="scan"
     >
       <points ref={headRef} geometry={head.geometry} material={mat} />
