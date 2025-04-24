@@ -38,7 +38,7 @@ export const Scan = memo(function Scan() {
   // Optimize mouse movement handler with throttling
   const handleMouseMove = useCallback(
     (mouse: Vector2) => {
-      return;
+      if (size.width < 768) return;
       // Skip small movements to reduce calculations
       if (
         lastPointer.current &&
@@ -55,7 +55,7 @@ export const Scan = memo(function Scan() {
       headRef.current?.lookAt(tar.x, tar.y - 1.5, tar.z);
       bodyRef.current?.lookAt(tar.x * 0.25, tar.y / 2, 4);
     },
-    [mod],
+    [size.width],
   );
 
   // Optimize breathing animation
