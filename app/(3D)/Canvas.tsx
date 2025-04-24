@@ -7,6 +7,7 @@ export default function Canva() {
   const document = globalThis.document;
   return (
     <Canvas
+      suppressHydrationWarning={true}
       linear
       className="!pointer-events-none !fixed !top-0"
       style={{

@@ -1,17 +1,17 @@
 import { Suspense } from "react";
 import { Scan } from "./Scan";
 import { useFrame } from "@react-three/fiber";
-import { Perf } from "r3f-perf";
+// import { Perf } from "r3f-perf";
 
 function Scene() {
   useFrame((state) => {
-    if (state.scene.children.length < 1 && state.frameloop === "always") {
+    if (!state.scene.children[0] && state.frameloop === "always") {
       // wait 500ms before switching to demand
       setTimeout(() => {
         state.setFrameloop("demand");
-      }, 1000);
+      }, 500);
     } else if (
-      state.scene.children.length > 1 &&
+      state.scene.children.length > 0 &&
       state.frameloop === "demand"
     ) {
       state.setFrameloop("always");
@@ -22,9 +22,9 @@ function Scene() {
     <Suspense fallback={null}>
       <Scan />
 
-      {process.env.NODE_ENV === "development" ? (
-        <Perf className="!absolute !bottom-2 !left-auto !right-2 !top-auto z-[99] !hidden  md:!block" />
-      ) : null}
+      {/* {process.env.NODE_ENV === "development" ? ( */}
+      {/*   <Perf className="!absolute !bottom-2 !left-auto !right-2 !top-auto z-[99] !hidden  md:!block" /> */}
+      {/* ) : null} */}
     </Suspense>
   );
 }

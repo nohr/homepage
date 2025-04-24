@@ -26,11 +26,11 @@ export const Scan = memo(function Scan() {
   // Memoize the material to prevent recreation on each render
   const mat = useMemo(() => {
     return new THREE.PointsMaterial({
-      size: size.width >= 768 ? 0.65 : size.width < 450 ? 0.2 : 0.75,
+      size: size.width >= 768 ? 0.65 : size.width < 450 ? 0.2 : 8.75,
       fog: false,
       color: window.matchMedia("(prefers-color-scheme: dark)").matches
         ? "#a3a3a3"
-        : "#e7e7e7",
+        : "#a3a3a3",
       toneMapped: false,
       opacity: 1,
       sizeAttenuation: false,
