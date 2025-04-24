@@ -14,6 +14,7 @@ import { allPostQuery, infoQuery, tagQuery } from "@/sanity/lib/queries";
 import { sanityFetch } from "@/sanity/lib/fetch";
 import Canva from "../(3D)/Canvas";
 import Content from "./content";
+import Loader from "../_components/loader";
 // import { resolveOpenGraphImage } from "@/sanity/lib/utils";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -70,6 +71,7 @@ export default async function RootLayout({
       className={`${inter.variable} text-[13px] bg-white text-black dark:bg-black dark:text-white`}
     >
       <body>
+        <Loader />
         <ScrollWrapper>
           <Nav tags={tags} />
           <main>

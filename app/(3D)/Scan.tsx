@@ -6,6 +6,7 @@ import { Group, Vector2, Vector3 } from "three";
 import { PCDLoader } from "three/addons/loaders/PCDLoader.js";
 import * as THREE from "three";
 import { useSearchParams } from "next/navigation";
+import { useUIStore } from "@/hooks/useUIStore";
 
 export const Scan = memo(function Scan() {
   const { size } = useThree();
@@ -20,6 +21,7 @@ export const Scan = memo(function Scan() {
   const mod = 3.2;
   const frameCount = useRef(0);
   const lastPointer = useRef(new Vector2());
+  const setLoaded = useUIStore((state) => state.setLoaded);
 
   // Memoize the material to prevent recreation on each render
   const mat = useMemo(() => {
@@ -70,7 +72,8 @@ export const Scan = memo(function Scan() {
   }, [size.width]);
 
   useEffect(() => {
-    if (groupRef.current)
+    if (groupRef.current) {
+      setLoaded(true);
       groupRef.current.position.lerp(
         new Vector3(
           groupRef.current.position.x,
@@ -79,7 +82,8 @@ export const Scan = memo(function Scan() {
         ),
         0.05,
       );
-  }, []);
+    }
+  }, [setLoaded]);
 
   useFrame(({ pointer, scene }) => {
     if (!groupRef.current) return;
