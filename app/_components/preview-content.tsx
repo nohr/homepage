@@ -29,7 +29,7 @@ export default function PreviewContent({
   if (!searchParams.get("p")) return null;
   return (
     <div
-      className={`relative flex justify-center items-center pointer-events-none flex-1 h-fit ${className}`}
+      className={`relative flex justify-center pointer-events-none flex-1 h-fit items-start ${className}`}
     >
       {preview_video ? (
         <VimeoVideo

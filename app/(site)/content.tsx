@@ -7,6 +7,8 @@ import ProjectList from "@/app/_components/project-list";
 import { Suspense, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { useLenis } from "lenis/react";
+import { AnimatePresence, motion } from "motion/react";
+import { useUIStore } from "@/hooks/useUIStore";
 
 export default function Content({
   info,
@@ -17,6 +19,7 @@ export default function Content({
 }) {
   const pathname = usePathname();
   const lenis = useLenis();
+  const loaded = useUIStore((state) => state.loaded);
 
   useEffect(() => {
     if (pathname.split("/")[1])
@@ -27,11 +30,23 @@ export default function Content({
     <>
       {/* homepage */}
       <Screen className="h-screen p-4 md:p-0">
-        <CustomPortableText
-          className="w-full justify-self-center md:justify-self-auto  col-span-full row-start-3 row-span-1 md:col-start-5 md:row-start-4 md:col-span-3 md:row-span-2 indent-12 dark:!text-white"
-          //@ts-expect-error stupid types
-          value={info[0].bio}
-        />
+        <AnimatePresence>
+          {loaded && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 2, delay: 3 }}
+              className="contents"
+              key="bio"
+            >
+              <CustomPortableText
+                className="w-full justify-self-center md:justify-self-auto  col-span-full row-start-3 row-span-1 md:col-start-5 md:row-start-4 md:col-span-3 md:row-span-2 indent-12 dark:!text-white"
+                //@ts-expect-error stupid types
+                value={info[0].bio}
+              />
+            </motion.div>
+          )}
+        </AnimatePresence>
       </Screen>
       {/* Projects */}
       <Screen id="work" className="!pt-[16.67svh] min-h-svh">

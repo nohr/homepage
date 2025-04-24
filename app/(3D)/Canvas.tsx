@@ -1,7 +1,7 @@
 "use client";
 
 import { Canvas } from "@react-three/fiber";
-import { Scan } from "./Scan";
+import Scene from "./Scene";
 
 export default function Canva() {
   const document = globalThis.document;
@@ -19,7 +19,7 @@ export default function Canva() {
         powerPreference: "high-performance",
       }}
     >
-      <Scan />
+      <Scene />
     </Canvas>
   );
 }

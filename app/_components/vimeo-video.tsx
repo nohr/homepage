@@ -38,7 +38,7 @@ export default function VimeoVideo({
     <>
       {!loaded ? (
         blurhash ? null : (
-          <PiSpinnerBold className="absolute text-3xl animate-spin" />
+          <PiSpinnerBold className="absolute text-3xl animate-spin !self-center" />
         )
       ) : null}
       <div
