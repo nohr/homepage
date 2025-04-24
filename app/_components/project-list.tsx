@@ -24,7 +24,6 @@ export default function ProjectList({
     const p = searchParams.get("p");
     if (!p) {
       setActive("");
-      lenis?.scrollTo("#work");
       return;
     } else setActive(p);
   }, [searchParams, tag, lenis]);
@@ -32,6 +31,7 @@ export default function ProjectList({
   function openPreview(project: AllPostQueryResult[number]) {
     if (active === project._id) {
       setActive("");
+      lenis?.scrollTo("#work");
       const nextParams = new URLSearchParams(searchParams.toString());
       nextParams.delete("p");
       router.push(pathname + "?" + nextParams.toString(), {
