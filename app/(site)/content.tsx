@@ -26,9 +26,9 @@ export default function Content({
   return (
     <>
       {/* homepage */}
-      <Screen className="h-screen  ">
+      <Screen className="h-screen p-4 md:p-0">
         <CustomPortableText
-          className="w-full col-span-full row-start-3 row-span-1 md:col-start-5 md:row-start-4 md:col-span-3 md:row-span-2 indent-12 dark:!text-white"
+          className="w-full justify-self-center md:justify-self-auto  col-span-full row-start-3 row-span-1 md:col-start-5 md:row-start-4 md:col-span-3 md:row-span-2 indent-12 dark:!text-white"
           //@ts-expect-error stupid types
           value={info[0].bio}
         />
@@ -40,7 +40,7 @@ export default function Content({
         </Suspense>
       </Screen>
       {/* About */}
-      <Screen id="about" className="!pt-[25svh] min-h-screen ">
+      <Screen id="about" className="!pt-[25svh] min-h-screen p-4 md:p-0">
         <h1 className="row-start-1">About</h1>
         <p className="md:col-start-5 md:row-start-2 md:col-span-3 md:row-span-2 row-start-2 ">
           This page is currently under construction. <br /> Please reach me via
