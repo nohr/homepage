@@ -170,7 +170,7 @@ export const Scan = memo(function Scan() {
       ref={groupRef}
       position={groupPosition}
       rotation={[0, 0, 0]}
-      scale={size.width < 768 ? 0.07 : 0.25}
+      scale={size.width < 768 ? 0.2 : 0.25}
       name="scan"
     >
       <points ref={headRef} geometry={head.geometry} material={mat} />
