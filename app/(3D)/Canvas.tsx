@@ -19,7 +19,7 @@ export default function Canva() {
       gl={{
         powerPreference: "high-performance",
       }}
-      camera={{ position: [0, 0.2, 3.2], zoom: 2 }}
+      camera={{ position: [0, 0.19, 3.2], zoom: 2 }}
     >
       <Scene />
     </Canvas>

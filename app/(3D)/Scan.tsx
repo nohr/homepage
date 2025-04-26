@@ -2,7 +2,7 @@ export const dynamic = "force-dynamic";
 
 import { useFrame, useLoader, useThree } from "@react-three/fiber";
 import { memo, useRef, useMemo, useCallback, useEffect } from "react";
-import { Group, Vector2, Vector3 } from "three";
+import { Group, Vector2, Vector3, Points } from "three";
 import { PCDLoader } from "three/addons/loaders/PCDLoader.js";
 import * as THREE from "three";
 import { useSearchParams } from "next/navigation";
@@ -14,8 +14,8 @@ export const Scan = memo(function Scan() {
     "/models/head.pcd",
     "/models/body.pcd",
   ]);
-  const headRef = useRef<THREE.Points>(null);
-  const bodyRef = useRef<THREE.Points>(null);
+  const headRef = useRef<Points>(null);
+  const bodyRef = useRef<Points>(null);
   const groupRef = useRef<Group>(null);
   const searchParams = useSearchParams();
   const mod = 3.2;

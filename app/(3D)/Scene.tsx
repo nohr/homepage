@@ -2,27 +2,21 @@ import { Suspense, useRef } from "react";
 import { Scan } from "./Scan";
 import { useFrame } from "@react-three/fiber";
 import Earth from "./Earth";
-import { Mesh, Points, Sphere, SphereGeometry } from "three";
+import { Mesh, SphereGeometry } from "three";
 // import { Perf } from "r3f-perf";
 
 function Scene() {
-  const headRef = useRef<Points>(null);
-  const bodyRef = useRef<Points>(null);
   const earthRef = useRef<Mesh<SphereGeometry>>(null);
 
-  useFrame((state) => {
-    console.log(state.scene.children);
+  useFrame(({ scene, frameloop, setFrameloop }) => {
     // handle frameloop
-    if (!state.scene.children[0] && state.frameloop === "always") {
+    if (!scene.children[0] && frameloop === "always") {
       // wait 500ms before switching to demand
       setTimeout(() => {
-        state.setFrameloop("demand");
+        setFrameloop("demand");
       }, 500);
-    } else if (
-      state.scene.children.length > 0 &&
-      state.frameloop === "demand"
-    ) {
-      state.setFrameloop("always");
+    } else if (scene.children.length > 0 && frameloop === "demand") {
+      setFrameloop("always");
     }
   });
 
