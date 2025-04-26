@@ -25,7 +25,7 @@ export default function Nav({ tags }: { tags: TagQueryResult }) {
               scrollTo={0}
               className="pointer-events-auto order-1 col-span-2 md:col-span-4 cursor-pointer flex flex-col gap-2"
             >
-              aitenoria aigbe
+              aite aigbe
               <svg
                 id="Layer_2"
                 xmlns="http://www.w3.org/2000/svg"
