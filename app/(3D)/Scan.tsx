@@ -29,7 +29,7 @@ export const Scan = memo(function Scan() {
       size: size.width >= 768 ? 0.65 : size.width < 450 ? 0.2 : 0.75,
       fog: false,
       color: window.matchMedia("(prefers-color-scheme: dark)").matches
-        ? "#6f6f6f"
+        ? "#888888"
         : "#d9d9d9",
       toneMapped: false,
       opacity: 1,
