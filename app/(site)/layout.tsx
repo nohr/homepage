@@ -16,6 +16,7 @@ import Canva from "../(3D)/Canvas";
 import Content from "./content";
 import Loader from "../_components/loader";
 // import { resolveOpenGraphImage } from "@/sanity/lib/utils";
+import Clarity from "@microsoft/clarity";
 
 export async function generateMetadata(): Promise<Metadata> {
   // const settings = await sanityFetch({
@@ -48,6 +49,10 @@ export async function generateMetadata(): Promise<Metadata> {
     // },
   };
 }
+
+const projectId = "rbgh7v06e5";
+
+Clarity.init(projectId);
 
 const inter = Inter({
   variable: "--font-inter",
