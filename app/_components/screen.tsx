@@ -13,7 +13,7 @@ export default function Screen({
   return (
     <div
       id={id}
-      className={"grid gap-4 grid-cols-1 md:grid-cols-6 md:p-4  " + className}
+      className={"grid gap-4 grid-cols-1 md:grid-cols-6 p-4 " + className}
     >
       {children}
     </div>
