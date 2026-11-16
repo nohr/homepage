@@ -5,8 +5,9 @@ import { memo, useRef, useMemo, useCallback, useEffect } from "react";
 import { Group, Vector2, Vector3, Points } from "three";
 import { PCDLoader } from "three/addons/loaders/PCDLoader.js";
 import * as THREE from "three";
-import { useSearchParams } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { useUIStore } from "@/hooks/useUIStore";
+import { openProjectKey } from "@/lib/projects";
 
 export const Scan = memo(function Scan() {
   const { size } = useThree();
@@ -17,7 +18,7 @@ export const Scan = memo(function Scan() {
   const headRef = useRef<Points>(null);
   const bodyRef = useRef<Points>(null);
   const groupRef = useRef<Group>(null);
-  const searchParams = useSearchParams();
+  const projectOpen = openProjectKey(usePathname()) !== "";
   const mod = 3.2;
   const frameCount = useRef(0);
   const lastPointer = useRef(new Vector2());
@@ -62,9 +63,9 @@ export const Scan = memo(function Scan() {
 
   // Optimize breathing animation
   const handleBreath = useCallback(() => {
-    if (searchParams.get("p") || !groupRef.current) return;
+    if (projectOpen || !groupRef.current) return;
     groupRef.current.position.y += Math.sin(Date.now() / 1500) / 250;
-  }, [searchParams]);
+  }, [projectOpen]);
 
   const handleReturnAttention = useCallback(() => {
     if (!groupRef.current) return;
@@ -126,7 +127,7 @@ export const Scan = memo(function Scan() {
     if (!groupRef.current) return;
 
     // Handle path changes
-    if (searchParams.get("p")) {
+    if (projectOpen) {
       handleExitScene(scene);
       return;
     } else {

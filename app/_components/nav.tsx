@@ -39,7 +39,7 @@ export default function Nav({ tags }: { tags: TagQueryResult }) {
             {/* Tags */}
             <div className="pointer-events-none flex flex-col order-2 justify-between h-full md:h-min md:col-start-5 col-span-2 *:w-fit *:cursor-pointer">
               <ScrollLink
-                href="work"
+                href="/work"
                 scrollTo="#work"
                 className="pointer-events-auto"
               >
@@ -51,7 +51,7 @@ export default function Nav({ tags }: { tags: TagQueryResult }) {
                     <ScrollLink
                       key={tag._id}
                       params={{ name: "t", value: tag.slug?.current ?? "" }}
-                      href="work"
+                      href="/work"
                       scrollTo="#work"
                       className="pointer-events-auto"
                     >
