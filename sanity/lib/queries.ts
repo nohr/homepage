@@ -45,14 +45,30 @@ export const allPostQuery = defineQuery(`
         rank,
         vimeo,
         content,
-        thumbnail{ 
-          "video": video.asset->url,
-          "blurhash": blurhash.asset->url,
-          },
         "slug": slug.current,
+        "tags": tags[]->{ _id, title, "slug": slug.current },
+        orientation,
+        year,
+        role,
+        "cover": coalesce(cover, thumbnail.blurhash){
+          "url": asset->url,
+          "width": asset->metadata.dimensions.width,
+          "height": asset->metadata.dimensions.height,
+          "lqip": asset->metadata.lqip,
+          alt
+        },
         program,
         date
       } | order(date desc)
+`);
+
+export const projectMetaQuery = defineQuery(`
+*[_type == "project" && (slug.current == $slug || _id == $slug)][0]{
+  name,
+  "slug": slug.current,
+  "description": pt::text(content),
+  "image": coalesce(cover, thumbnail.blurhash).asset->url
+}
 `);
 
 export const infoQuery = defineQuery(`

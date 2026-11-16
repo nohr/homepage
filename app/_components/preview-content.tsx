@@ -1,11 +1,11 @@
 "use client";
 
 import Image from "next/image";
-import { useSearchParams } from "next/navigation";
 import VimeoVideo from "./vimeo-video";
 import { useEffect } from "react";
 import { useLenis } from "lenis/react";
 import { AllPostQueryResult } from "@/sanity.types";
+import { isPortrait } from "@/lib/projects";
 
 export default function PreviewContent({
   project,
@@ -14,41 +14,36 @@ export default function PreviewContent({
   project: AllPostQueryResult[number];
   className?: string;
 }) {
-  const searchParams = useSearchParams();
-  const p = searchParams.get("p") ?? "";
-  const preview_image = project.thumbnail?.blurhash;
+  const cover = project.cover;
   const preview_video = project.vimeo;
-  const rank = project.rank;
   const lenis = useLenis();
 
+  // Only mounted while its project is open: bring that entry into view.
   useEffect(() => {
-    if (p && !document.querySelector(`#${CSS.escape(p)}`)) return;
-    if (p) lenis?.scrollTo(`#${CSS.escape(p)}`, { offset: -90 });
-  }, [lenis, p]);
+    const entry = document.getElementById(project._id);
+    if (entry) lenis?.scrollTo(entry, { offset: -90 });
+  }, [lenis, project._id]);
 
-  if (!searchParams.get("p")) return null;
   return (
     <div
       className={`relative flex justify-center pointer-events-none flex-1 h-fit items-start ${className}`}
     >
       {preview_video ? (
         <VimeoVideo
-          rank={rank}
-          key={preview_video ?? 0}
-          id={preview_video ?? 0}
+          portrait={isPortrait(project)}
+          key={preview_video}
+          id={preview_video}
         />
       ) : null}
-      {preview_image && !preview_video && (
+      {cover?.url && !preview_video && (
         <Image
-          src={preview_image}
-          alt={preview_image}
-          height={parseInt(
-            preview_image.split("-")[1].split(".")[0].split("x")[0],
-          )}
-          width={parseInt(
-            preview_image.split("-")[1].split(".")[0].split("x")[1],
-          )}
-          sizes="400px"
+          src={cover.url}
+          alt={cover.alt || project.name || ""}
+          width={cover.width ?? 1600}
+          height={cover.height ?? 900}
+          placeholder={cover.lqip ? "blur" : "empty"}
+          blurDataURL={cover.lqip ?? undefined}
+          sizes="(min-width: 768px) 66vw, 100vw"
           priority
           className={`pointer-events-none  select-none object-contain -z-10 flex-1`}
         />

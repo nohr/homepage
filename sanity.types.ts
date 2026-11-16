@@ -92,6 +92,22 @@ export type Project = {
   _rev: string;
   name?: string;
   slug?: Slug;
+  year?: number;
+  role?: string;
+  orientation?: "landscape" | "portrait";
+  cover?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
   rank?: number;
   thumbnail?: {
     video?: {
@@ -295,7 +311,7 @@ export type MoreStoriesQueryResult = Array<never>;
 // Query: *[_type == "post" && slug.current == $slug] [0] {    content,      _id,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _updatedAt),  "author": author->{"name": coalesce(name, "Anonymous"), picture},  }
 export type PostQueryResult = null;
 // Variable: allPostQuery
-// Query: *[ _type == "project" ]{        _id,        _type,        _createdAt,        _updatedAt,        _rev,        name,        medium,        rank,        vimeo,        content,        thumbnail{           "video": video.asset->url,          "blurhash": blurhash.asset->url,          },        "slug": slug.current,        program,        date      } | order(date desc)
+// Query: *[ _type == "project" ]{        _id,        _type,        _createdAt,        _updatedAt,        _rev,        name,        medium,        rank,        vimeo,        content,        "slug": slug.current,        "tags": tags[]->{ _id, title, "slug": slug.current },        orientation,        year,        role,        "cover": coalesce(cover, thumbnail.blurhash){          "url": asset->url,          "width": asset->metadata.dimensions.width,          "height": asset->metadata.dimensions.height,          "lqip": asset->metadata.lqip,          alt        },        program,        date      } | order(date desc)
 export type AllPostQueryResult = Array<{
   _id: string;
   _type: "project";
@@ -307,14 +323,39 @@ export type AllPostQueryResult = Array<{
   rank: number | null;
   vimeo: number | null;
   content: BlockContent | null;
-  thumbnail: {
-    video: string | null;
-    blurhash: string | null;
-  } | null;
   slug: string | null;
+  tags: Array<{
+    _id: string;
+    title: string | null;
+    slug: string | null;
+  }> | null;
+  orientation: "landscape" | "portrait" | null;
+  year: number | null;
+  role: string | null;
+  cover: {
+    url: string | null;
+    width: number | null;
+    height: number | null;
+    lqip: string | null;
+    alt: null;
+  } | {
+    url: string | null;
+    width: number | null;
+    height: number | null;
+    lqip: string | null;
+    alt: string | null;
+  } | null;
   program: Array<string> | null;
   date: string | null;
 }>;
+// Variable: projectMetaQuery
+// Query: *[_type == "project" && (slug.current == $slug || _id == $slug)][0]{  name,  "slug": slug.current,  "description": pt::text(content),  "image": coalesce(cover, thumbnail.blurhash).asset->url}
+export type ProjectMetaQueryResult = {
+  name: string | null;
+  slug: string | null;
+  description: string;
+  image: string | null;
+} | null;
 // Variable: infoQuery
 // Query: * [_type == "info"] {...}
 export type InfoQueryResult = Array<{
@@ -360,7 +401,8 @@ declare module "@sanity/client" {
     "\n  *[_type == \"post\" && defined(slug.current)] | order(date desc, _updatedAt desc) [0] {\n    content,\n    \n  _id,\n  \"status\": select(_originalId in path(\"drafts.**\") => \"draft\", \"published\"),\n  \"title\": coalesce(title, \"Untitled\"),\n  \"slug\": slug.current,\n  excerpt,\n  coverImage,\n  \"date\": coalesce(date, _updatedAt),\n  \"author\": author->{\"name\": coalesce(name, \"Anonymous\"), picture},\n\n  }\n": HeroQueryResult;
     "\n  *[_type == \"post\" && _id != $skip && defined(slug.current)] | order(date desc, _updatedAt desc) [0...$limit] {\n    \n  _id,\n  \"status\": select(_originalId in path(\"drafts.**\") => \"draft\", \"published\"),\n  \"title\": coalesce(title, \"Untitled\"),\n  \"slug\": slug.current,\n  excerpt,\n  coverImage,\n  \"date\": coalesce(date, _updatedAt),\n  \"author\": author->{\"name\": coalesce(name, \"Anonymous\"), picture},\n\n  }\n": MoreStoriesQueryResult;
     "\n  *[_type == \"post\" && slug.current == $slug] [0] {\n    content,\n    \n  _id,\n  \"status\": select(_originalId in path(\"drafts.**\") => \"draft\", \"published\"),\n  \"title\": coalesce(title, \"Untitled\"),\n  \"slug\": slug.current,\n  excerpt,\n  coverImage,\n  \"date\": coalesce(date, _updatedAt),\n  \"author\": author->{\"name\": coalesce(name, \"Anonymous\"), picture},\n\n  }\n": PostQueryResult;
-    "\n*[ _type == \"project\" ]{\n        _id,\n        _type,\n        _createdAt,\n        _updatedAt,\n        _rev,\n        name,\n        medium,\n        rank,\n        vimeo,\n        content,\n        thumbnail{ \n          \"video\": video.asset->url,\n          \"blurhash\": blurhash.asset->url,\n          },\n        \"slug\": slug.current,\n        program,\n        date\n      } | order(date desc)\n": AllPostQueryResult;
+    "\n*[ _type == \"project\" ]{\n        _id,\n        _type,\n        _createdAt,\n        _updatedAt,\n        _rev,\n        name,\n        medium,\n        rank,\n        vimeo,\n        content,\n        \"slug\": slug.current,\n        \"tags\": tags[]->{ _id, title, \"slug\": slug.current },\n        orientation,\n        year,\n        role,\n        \"cover\": coalesce(cover, thumbnail.blurhash){\n          \"url\": asset->url,\n          \"width\": asset->metadata.dimensions.width,\n          \"height\": asset->metadata.dimensions.height,\n          \"lqip\": asset->metadata.lqip,\n          alt\n        },\n        program,\n        date\n      } | order(date desc)\n": AllPostQueryResult;
+    "\n*[_type == \"project\" && (slug.current == $slug || _id == $slug)][0]{\n  name,\n  \"slug\": slug.current,\n  \"description\": pt::text(content),\n  \"image\": coalesce(cover, thumbnail.blurhash).asset->url\n}\n": ProjectMetaQueryResult;
     "\n* [_type == \"info\"] {...}\n": InfoQueryResult;
     "\n*[ _type == \"tag\" ]{\n    _id,\n    title,\n    slug,\n  }\n": TagQueryResult;
   }

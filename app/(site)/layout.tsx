@@ -38,7 +38,7 @@ export async function generateMetadata(): Promise<Metadata> {
   //   // ignore
   // }
   return {
-    // metadataBase,
+    metadataBase: new URL("https://aitenoria.com"),
     title: {
       template: `%s | ${title}`,
       default: title,

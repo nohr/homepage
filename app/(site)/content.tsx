@@ -19,8 +19,9 @@ export default function Content({
   const lenis = useLenis();
 
   useEffect(() => {
-    if (pathname.split("/")[1])
-      lenis?.scrollTo(`#${pathname.split("/")[1]}`, { offset: -90 });
+    const [, section, child] = pathname.split("/");
+    // On /work/<slug> the open project scrolls itself into view.
+    if (section && !child) lenis?.scrollTo(`#${section}`, { offset: -90 });
   }, [pathname, lenis]);
 
   return (
